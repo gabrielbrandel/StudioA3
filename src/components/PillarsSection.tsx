@@ -1,5 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
+import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { Reveal } from './Reveal'
 
 import kitchen from '../assets/mock/room-kitchen.svg'
@@ -46,11 +48,110 @@ const pillars: Pillar[] = [
   },
 ]
 
-export function PillarsSection() {
-  const reduce = useReducedMotion()
+function PillarCard({
+  p,
+  idx,
+  reduce,
+  layout,
+}: {
+  p: Pillar
+  idx: number
+  reduce: boolean
+  layout: 'carousel' | 'grid'
+}) {
+  const stagger =
+    layout === 'grid'
+      ? idx === 1
+        ? 'md:-translate-y-3'
+        : idx === 2
+          ? 'md:translate-y-4'
+          : ''
+      : ''
+
+  const width =
+    layout === 'carousel'
+      ? 'w-[min(20rem,calc(100%-1rem))] shrink-0 snap-start'
+      : 'h-full'
 
   return (
-    <section id="pilares" className="relative z-10 py-20 sm:py-24">
+    <motion.div
+      className={[
+        'group rounded-[28px] bg-studio-200/25 p-7 shadow-soft ring-1 ring-studio-300/35 backdrop-blur',
+        stagger,
+        width,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      whileHover={reduce ? undefined : { y: -6 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div
+        className="overflow-hidden shadow-ring"
+        style={{
+          borderRadius: '24px',
+          clipPath:
+            idx % 3 === 0
+              ? 'polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 14%)'
+              : idx % 3 === 1
+                ? 'polygon(0 0, 88% 0, 100% 14%, 100% 100%, 0 100%)'
+                : 'polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%)',
+        }}
+      >
+        <img
+          src={p.image}
+          alt={`Mock de ambiente: ${p.title}`}
+          className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+          loading="lazy"
+        />
+      </div>
+
+      <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-studio-600">
+        {p.subtitle.toUpperCase()}
+      </p>
+      <h3 className="mt-3 text-xl font-semibold tracking-tight text-studio-950">{p.title}</h3>
+
+      <ul className="mt-5 space-y-3 text-sm leading-relaxed text-studio-700">
+        {p.bullets.map((b) => (
+          <li key={b} className="flex gap-3">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-studio-900/35" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  )
+}
+
+export function PillarsSection() {
+  const reduce = Boolean(useReducedMotion())
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    const root = scrollerRef.current
+    if (!root) return
+
+    const slides = root.querySelectorAll<HTMLElement>('[data-pillar-slide]')
+    if (slides.length === 0) return
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.55) {
+            const i = Number(e.target.getAttribute('data-pillar-idx'))
+            if (!Number.isNaN(i)) setActive(i)
+          }
+        }
+      },
+      { root, threshold: [0.45, 0.55, 0.65] },
+    )
+
+    slides.forEach((el) => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+
+  return (
+    <section id="pilares" className="relative z-10 overflow-x-hidden py-20 sm:py-24">
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
@@ -65,54 +166,42 @@ export function PillarsSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <MobileSnapCarousel
+          ref={scrollerRef}
+          maxBreakpoint="md"
+          aria-label="Pilares do atendimento StudioA3"
+          className="mt-12"
+        >
+          {pillars.map((p, idx) => (
+            <div key={p.title} data-pillar-slide data-pillar-idx={idx}>
+              <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
+            </div>
+          ))}
+        </MobileSnapCarousel>
+
+        <div
+          className="mt-2 flex justify-center gap-2 md:hidden"
+          role="tablist"
+          aria-label="Indicadores do carrossel"
+        >
+          {pillars.map((p, i) => (
+            <span
+              key={p.title}
+              role="presentation"
+              className={[
+                'h-2 w-2 rounded-full transition-colors duration-200',
+                i === active ? 'bg-studio-900' : 'bg-studio-300',
+              ].join(' ')}
+            />
+          ))}
+        </div>
+
+        <p className="mt-2 text-center text-xs text-studio-600 md:hidden">Deslize para o lado para ver os pilares</p>
+
+        <div className="mt-12 hidden gap-5 md:grid md:grid-cols-3">
           {pillars.map((p, idx) => (
             <Reveal key={p.title} delay={0.05 + idx * 0.05}>
-              <motion.div
-                className={[
-                  'group h-full rounded-[28px] bg-studio-200/25 p-7 shadow-soft ring-1 ring-studio-300/35 backdrop-blur',
-                  idx === 1 ? 'md:-translate-y-3' : '',
-                  idx === 2 ? 'md:translate-y-4' : '',
-                ].join(' ')}
-                whileHover={reduce ? undefined : { y: -6 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div
-                  className="overflow-hidden shadow-ring"
-                  style={{
-                    borderRadius: '24px',
-                    clipPath:
-                      idx % 3 === 0
-                        ? 'polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 14%)'
-                        : idx % 3 === 1
-                          ? 'polygon(0 0, 88% 0, 100% 14%, 100% 100%, 0 100%)'
-                          : 'polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%)',
-                  }}
-                >
-                  <img
-                    src={p.image}
-                    alt={`Mock de ambiente: ${p.title}`}
-                    className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
-                    loading="lazy"
-                  />
-                </div>
-
-                <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-studio-600">
-                  {p.subtitle.toUpperCase()}
-                </p>
-                <h3 className="mt-3 text-xl font-semibold tracking-tight text-studio-950">
-                  {p.title}
-                </h3>
-
-                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-studio-700">
-                  {p.bullets.map((b) => (
-                    <li key={b} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-studio-900/35" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+              <PillarCard p={p} idx={idx} reduce={reduce} layout="grid" />
             </Reveal>
           ))}
         </div>

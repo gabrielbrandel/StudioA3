@@ -8,8 +8,8 @@ export function HeroSection() {
   const reduce = useReducedMotion()
 
   return (
-    <section id="inicio" className="relative overflow-hidden bg-transparent pt-24">
-      <div className="mx-auto max-w-6xl lg:px-8">
+    <section id="inicio" className="relative min-w-0 overflow-hidden bg-transparent pt-24">
+      <div className="mx-auto w-full min-w-0 max-w-6xl lg:px-8">
         <div className="grid items-stretch lg:grid-cols-12 lg:gap-10">
           <motion.div
             className="relative order-1 lg:order-2 lg:col-span-7"

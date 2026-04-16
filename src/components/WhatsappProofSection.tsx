@@ -41,7 +41,7 @@ const chats: Chat[] = [
 
 function PhoneFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto w-full max-w-[min(320px,100%)]">
+    <div className="relative mx-auto w-full max-w-[min(320px,100%)] overflow-hidden">
       <div className="rounded-[2.2rem] bg-studio-950 p-[10px] shadow-soft">
         <div className="rounded-[1.9rem] bg-studio-50">
           <div className="flex items-center justify-between px-5 py-4">
@@ -118,7 +118,10 @@ export function WhatsappProofSection() {
   }
 
   return (
-    <section id="provas" className="relative z-10 -mt-10 py-20 sm:-mt-14 sm:py-24">
+    <section
+      id="provas"
+      className="relative z-10 -mt-10 overflow-x-hidden py-20 sm:-mt-14 sm:py-24"
+    >
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
@@ -180,7 +183,7 @@ export function WhatsappProofSection() {
               <motion.div
                 key={c.title}
                 className={[
-                  'flex w-full min-w-0 flex-col items-center max-lg:max-w-[min(320px,calc(100vw-4.5rem))] max-lg:shrink-0 max-lg:snap-start',
+                  'flex w-full min-w-0 flex-col items-center max-lg:max-w-[min(20rem,calc(100%-1rem))] max-lg:shrink-0 max-lg:snap-start',
                   'lg:snap-normal',
                 ].join(' ')}
                 whileHover={reduce ? undefined : { y: -4 }}

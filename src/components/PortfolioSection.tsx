@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
+import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { Modal } from './Modal'
 import { Reveal } from './Reveal'
 import kitchen from '../assets/mock/room-kitchen.svg'
@@ -103,7 +104,10 @@ export function PortfolioSection() {
   const [selected, setSelected] = useState<PortfolioItem | null>(null)
 
   return (
-    <section id="portfolio" className="relative z-10 -mt-14 py-20 sm:-mt-20 sm:py-24">
+    <section
+      id="portfolio"
+      className="relative z-10 -mt-14 overflow-x-hidden py-20 sm:-mt-20 sm:py-24"
+    >
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">PORTFÓLIO</p>
@@ -116,96 +120,163 @@ export function PortfolioSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="lg:col-span-7">
+        <MobileSnapCarousel
+          maxBreakpoint="lg"
+          aria-label="Projetos do portfólio StudioA3"
+          className="mt-12"
+        >
+          {items.map((it, idx) => (
             <motion.button
+              key={it.id}
               type="button"
-              onClick={() => setSelected(items[0]!)}
-              className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
-              style={{ borderRadius: '34px', clipPath: 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)' }}
+              onClick={() => setSelected(it)}
+              className="group relative w-[min(18.75rem,calc(100%-1rem))] shrink-0 snap-start overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+              style={{
+                borderRadius: idx === 0 ? '34px' : '28px',
+                clipPath:
+                  idx === 0
+                    ? 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)'
+                    : idx % 2 === 0
+                      ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
+                      : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
+              }}
               whileHover={reduce ? undefined : { y: -4 }}
-              whileTap={reduce ? undefined : { scale: 0.995 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              whileTap={reduce ? undefined : { scale: 0.99 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative aspect-[16/11] w-full bg-studio-900">
+              <div
+                className={
+                  idx === 0
+                    ? 'relative aspect-[16/11] w-full bg-studio-900'
+                    : 'relative aspect-[4/3] w-full bg-studio-900'
+                }
+              >
                 <img
-                  src={items[0]!.image}
-                  alt={`Mock de ambiente: ${items[0]!.title}`}
-                  className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+                  src={it.image}
+                  alt={`Mock de ambiente: ${it.title}`}
+                  className="h-full w-full object-cover transition duration-600 ease-out group-hover:scale-[1.03]"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                  <p className="text-lg font-semibold text-white">{items[0]!.title}</p>
-                  <p className="mt-2 text-sm text-white/75">{items[0]!.subtitle}</p>
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                    Clique para ampliar
-                  </div>
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  <p
+                    className={
+                      idx === 0
+                        ? 'text-lg font-semibold text-white'
+                        : 'text-sm font-semibold text-white'
+                    }
+                  >
+                    {it.title}
+                  </p>
+                  <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
+                  {idx === 0 ? (
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      Toque para ampliar
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </motion.button>
-          </Reveal>
+          ))}
+        </MobileSnapCarousel>
 
-          <Reveal delay={0.06} className="lg:col-span-5">
-            <div className="lg:pt-10">
-              <p className="text-sm font-semibold text-studio-950">Seleção StudioA3</p>
-              <p className="mt-3 text-base leading-relaxed text-studio-700">
-                Um recorte “editorial” do portfólio: ambientes neutros, volumetria limpa e
-                composição que guia o olhar — como um showroom em scroll.
-              </p>
-              <div className="mt-6 rounded-3xl bg-studio-200/25 p-6 shadow-soft ring-1 ring-studio-300/35 backdrop-blur">
-                <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
-                  DESTAQUE
-                </p>
-                <p className="mt-3 text-base font-semibold text-studio-950">{items[1]!.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-studio-700">{items[1]!.subtitle}</p>
-                <button
-                  type="button"
-                  onClick={() => setSelected(items[1]!)}
-                  className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-studio-950 px-4 py-3 text-sm font-semibold text-white shadow-soft ring-1 ring-studio-300/25 transition hover:bg-studio-900"
-                >
-                  Ver detalhes
-                </button>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+        <p className="mt-2 text-center text-xs text-studio-600 lg:hidden">
+          Deslize para explorar todos os ambientes
+        </p>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {items.slice(2).map((it, idx) => (
-            <Reveal key={it.id} delay={0.05 + idx * 0.03}>
+        <div className="mt-12 hidden lg:block">
+          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
+            <Reveal className="lg:col-span-7">
               <motion.button
                 type="button"
-                onClick={() => setSelected(it)}
+                onClick={() => setSelected(items[0]!)}
                 className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
-                style={{
-                  borderRadius: '28px',
-                  clipPath:
-                    idx % 2 === 0
-                      ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
-                      : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
-                }}
+                style={{ borderRadius: '34px', clipPath: 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)' }}
                 whileHover={reduce ? undefined : { y: -4 }}
-                whileTap={reduce ? undefined : { scale: 0.99 }}
-                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                whileTap={reduce ? undefined : { scale: 0.995 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="relative aspect-[4/3] w-full bg-studio-900">
+                <div className="relative aspect-[16/11] w-full bg-studio-900">
                   <img
-                    src={it.image}
-                    alt={`Mock de ambiente: ${it.title}`}
-                    className="h-full w-full object-cover transition duration-600 ease-out group-hover:scale-[1.03]"
+                    src={items[0]!.image}
+                    alt={`Mock de ambiente: ${items[0]!.title}`}
+                    className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="text-sm font-semibold text-white">{it.title}</p>
-                    <p className="mt-1 text-xs text-white/75">{it.subtitle}</p>
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                    <p className="text-lg font-semibold text-white">{items[0]!.title}</p>
+                    <p className="mt-2 text-sm text-white/75">{items[0]!.subtitle}</p>
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      Clique para ampliar
+                    </div>
                   </div>
                 </div>
               </motion.button>
             </Reveal>
-          ))}
+
+            <Reveal delay={0.06} className="lg:col-span-5">
+              <div className="lg:pt-10">
+                <p className="text-sm font-semibold text-studio-950">Seleção StudioA3</p>
+                <p className="mt-3 text-base leading-relaxed text-studio-700">
+                  Um recorte “editorial” do portfólio: ambientes neutros, volumetria limpa e
+                  composição que guia o olhar — como um showroom em scroll.
+                </p>
+                <div className="mt-6 rounded-3xl bg-studio-200/25 p-6 shadow-soft ring-1 ring-studio-300/35 backdrop-blur">
+                  <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
+                    DESTAQUE
+                  </p>
+                  <p className="mt-3 text-base font-semibold text-studio-950">{items[1]!.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-studio-700">{items[1]!.subtitle}</p>
+                  <button
+                    type="button"
+                    onClick={() => setSelected(items[1]!)}
+                    className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-studio-950 px-4 py-3 text-sm font-semibold text-white shadow-soft ring-1 ring-studio-300/25 transition hover:bg-studio-900"
+                  >
+                    Ver detalhes
+                  </button>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {items.slice(2).map((it, idx) => (
+              <Reveal key={it.id} delay={0.05 + idx * 0.03}>
+                <motion.button
+                  type="button"
+                  onClick={() => setSelected(it)}
+                  className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+                  style={{
+                    borderRadius: '28px',
+                    clipPath:
+                      idx % 2 === 0
+                        ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
+                        : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
+                  }}
+                  whileHover={reduce ? undefined : { y: -4 }}
+                  whileTap={reduce ? undefined : { scale: 0.99 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div className="relative aspect-[4/3] w-full bg-studio-900">
+                    <img
+                      src={it.image}
+                      alt={`Mock de ambiente: ${it.title}`}
+                      className="h-full w-full object-cover transition duration-600 ease-out group-hover:scale-[1.03]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <p className="text-sm font-semibold text-white">{it.title}</p>
+                      <p className="mt-1 text-xs text-white/75">{it.subtitle}</p>
+                    </div>
+                  </div>
+                </motion.button>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </Container>
 

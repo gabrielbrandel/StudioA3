@@ -50,15 +50,18 @@ export function LeadFormSection() {
   const canSubmit = state.nome.trim().length >= 2 && state.telefone.trim().length >= 8
 
   return (
-    <section id="contato" className="relative z-10 -mt-10 pb-24 pt-10 sm:-mt-14 sm:pb-28 sm:pt-12">
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
-          <div>
+    <section
+      id="contato"
+      className="relative z-10 -mt-10 overflow-x-hidden pb-24 pt-10 sm:-mt-14 sm:pb-28 sm:pt-12"
+    >
+      <Container className="min-w-0">
+        <div className="grid min-w-0 gap-8 sm:gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
+          <div className="min-w-0">
             <Reveal>
               <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
                 ORÇAMENTO
               </p>
-              <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
+              <h2 className="mt-4 text-balance font-display text-2xl tracking-tight text-studio-950 sm:text-4xl">
                 Solicite seu orçamento
               </h2>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-studio-700">
@@ -68,7 +71,7 @@ export function LeadFormSection() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mt-6 rounded-2xl bg-studio-50 p-6 shadow-ring">
+              <div className="mt-6 rounded-2xl bg-studio-50 p-4 shadow-ring sm:p-6">
                 <p className="text-sm font-semibold text-studio-900">
                   Dica para maior precisão
                 </p>
@@ -80,9 +83,9 @@ export function LeadFormSection() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="min-w-0">
             <form
-              className="rounded-[28px] bg-studio-200/25 p-6 shadow-soft ring-1 ring-studio-300/35 backdrop-blur"
+              className="min-w-0 rounded-2xl bg-studio-200/25 p-4 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:rounded-[28px] sm:p-6"
               onSubmit={(e) => {
                 e.preventDefault()
                 if (!canSubmit) return
@@ -93,8 +96,8 @@ export function LeadFormSection() {
                 window.setTimeout(() => setSent(false), 6000)
               }}
             >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="sm:col-span-1">
+              <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+                <div className="min-w-0 sm:col-span-1">
                   <label className="text-sm font-medium text-studio-900" htmlFor="nome">
                     Nome
                   </label>
@@ -102,14 +105,14 @@ export function LeadFormSection() {
                     id="nome"
                     value={state.nome}
                     onChange={(e) => setState((s) => ({ ...s, nome: e.target.value }))}
-                    className="mt-2 h-11 w-full rounded-2xl border border-studio-200 bg-white px-4 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10"
+                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
                     placeholder="Seu nome"
                     autoComplete="name"
                     required
                   />
                 </div>
 
-                <div className="sm:col-span-1">
+                <div className="min-w-0 sm:col-span-1">
                   <label
                     className="text-sm font-medium text-studio-900"
                     htmlFor="telefone"
@@ -122,14 +125,14 @@ export function LeadFormSection() {
                     onChange={(e) =>
                       setState((s) => ({ ...s, telefone: e.target.value }))
                     }
-                    className="mt-2 h-11 w-full rounded-2xl border border-studio-200 bg-white px-4 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10"
+                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
                     placeholder="(DDD) número"
                     autoComplete="tel"
                     required
                   />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div className="min-w-0 sm:col-span-2">
                   <label
                     className="text-sm font-medium text-studio-900"
                     htmlFor="ambiente"
@@ -142,7 +145,7 @@ export function LeadFormSection() {
                     onChange={(e) =>
                       setState((s) => ({ ...s, ambiente: e.target.value }))
                     }
-                    className="mt-2 h-11 w-full rounded-2xl border border-studio-200 bg-white px-4 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10"
+                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
                   >
                     <option value="">Selecione</option>
                     {ambientes.map((a) => (
@@ -153,7 +156,7 @@ export function LeadFormSection() {
                   </select>
                 </div>
 
-                <div className="sm:col-span-2">
+                <div className="min-w-0 sm:col-span-2">
                   <label
                     className="text-sm font-medium text-studio-900"
                     htmlFor="mensagem"
@@ -166,14 +169,14 @@ export function LeadFormSection() {
                     onChange={(e) =>
                       setState((s) => ({ ...s, mensagem: e.target.value }))
                     }
-                    className="mt-2 min-h-28 w-full resize-y rounded-2xl border border-studio-200 bg-white px-4 py-3 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10"
+                    className="mt-2 box-border min-h-24 w-full max-w-full min-w-0 resize-y rounded-2xl border border-studio-200 bg-white px-3 py-3 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:min-h-28 sm:px-4"
                     placeholder="Conte um pouco sobre o que você precisa."
                   />
                 </div>
               </div>
 
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs text-studio-600">
+              <div className="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-balance text-xs text-studio-600 sm:max-w-[55%]">
                   Ao enviar, você será redirecionado para o WhatsApp.
                 </p>
                 <Button

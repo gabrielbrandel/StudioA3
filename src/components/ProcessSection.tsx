@@ -19,7 +19,7 @@ export function ProcessSection() {
     >
       <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-24 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
-      <Container>
+      <Container className="min-w-0">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-white/60">CRONOGRAMA</p>
           <h2 className="mt-4 font-display text-3xl tracking-tight text-white sm:text-4xl">
@@ -31,7 +31,7 @@ export function ProcessSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-12 w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="min-w-[980px] px-1">
             <div className="relative">
               <div className="absolute left-10 right-10 top-[22px] h-px bg-white/15" />

@@ -11,10 +11,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-studio-100 text-studio-800 antialiased;
+    overflow-x: hidden;
     font-feature-settings:
       'rlig' 1,
       'calt' 1;

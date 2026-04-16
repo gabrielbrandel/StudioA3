@@ -6,7 +6,7 @@ import { Reveal } from './Reveal'
 export function CtaSection() {
   const reduce = useReducedMotion()
   return (
-    <section className="relative z-10 -mt-12 py-10 sm:-mt-16 sm:py-12">
+    <section className="relative z-10 -mt-12 overflow-x-hidden py-10 sm:-mt-16 sm:py-12">
       <Container>
         <Reveal>
           <motion.div
