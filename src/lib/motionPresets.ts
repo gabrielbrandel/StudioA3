@@ -9,8 +9,8 @@ export const inViewSection = {
 
 export const inViewReveal = {
   once: true as const,
-  amount: 'some' as const,
-  margin: '-50px 0px -20% 0px' as const,
+  amount: 0.12 as const,
+  margin: '0px 0px -10% 0px' as const,
 }
 
 export const inViewHero = {

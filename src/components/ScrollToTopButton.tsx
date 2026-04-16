@@ -18,7 +18,7 @@ export function ScrollToTopButton() {
     <motion.button
       type="button"
       className={[
-        'fixed bottom-24 right-4 z-50',
+        'fixed z-50 bottom-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.5rem))] right-[max(1rem,env(safe-area-inset-right))]',
         'inline-flex h-12 w-12 items-center justify-center rounded-2xl',
         'bg-white text-studio-950 shadow-soft ring-1 ring-studio-200/80',
         'hover:bg-studio-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/15',

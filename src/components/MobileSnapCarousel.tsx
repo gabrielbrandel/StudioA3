@@ -1,8 +1,8 @@
 import { forwardRef, type PropsWithChildren } from 'react'
 
-/** `snap-proximity` evita o carrossel “segurar” a rolagem vertical no celular. */
+/** `pan-x` + `pan-y`: só `pan-x` faz o iOS/Android ignorarem a rolagem vertical quando o toque começa no trilho. */
 const mobileSnapTrackClass =
-  'flex w-full min-w-0 max-w-full touch-pan-x gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-3 snap-x snap-proximity [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+  'flex w-full min-w-0 max-w-full gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-3 snap-x snap-proximity [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x_pan-y]'
 
 type Props = PropsWithChildren<{
   'aria-label': string

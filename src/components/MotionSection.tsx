@@ -18,10 +18,10 @@ export function MotionSection({ className, children, ...rest }: Props) {
   return (
     <motion.section
       className={mergedClass}
-      initial={reduce ? shown : { opacity: 0, y: 64, scale: 0.93 }}
+      initial={reduce ? shown : { opacity: 0, y: 36, scale: 0.98 }}
       whileInView={shown}
       viewport={inViewSection}
-      transition={reduce ? instantTransition() : springPop(320, 0)}
+      transition={reduce ? instantTransition() : springPop(460, 0)}
       {...rest}
     >
       {children}

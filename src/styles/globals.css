@@ -32,6 +32,12 @@
       'rlig' 1,
       'calt' 1;
   }
+
+  #root {
+    min-height: 100dvh;
+    width: 100%;
+    max-width: none;
+  }
 }
 
 @layer utilities {
@@ -58,7 +64,7 @@
   }
 
   .container-px {
-    @apply px-4 sm:px-6 lg:px-8;
+    @apply ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] sm:ps-6 sm:pe-6 lg:ps-8 lg:pe-8;
   }
 
   .grid-fade {
