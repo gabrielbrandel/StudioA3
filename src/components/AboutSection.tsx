@@ -2,7 +2,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
+import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
+import { StudioLogo } from './StudioLogo'
 
 import living from '../assets/mock/room-living.svg'
 import bedroom from '../assets/mock/room-bedroom.svg'
@@ -55,19 +57,21 @@ function TeamMemberCard({
   return (
     <motion.div
       className={[
-        'rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30',
+        'group rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30 transition-shadow duration-300',
       ]
         .filter(Boolean)
         .join(' ')}
-      whileHover={reduce ? undefined : { y: -2 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={
+        reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 16px 34px -20px rgba(37,34,32,0.16)' }
+      }
+      transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={['flex flex-col gap-3', bodyLayout].join(' ')}>
         <div className="relative h-[5.5rem] w-[5.5rem] shrink-0 sm:h-24 sm:w-24">
           <img
             src={m.photoSrc}
             alt={`Retrato de ${m.name} (imagem ilustrativa)`}
-            className="h-full w-full rounded-full object-cover shadow-soft ring-2 ring-white/90 ring-offset-2 ring-offset-studio-200/30"
+            className="img-hover-zoom h-full w-full rounded-full object-cover shadow-soft ring-2 ring-white/90 ring-offset-2 ring-offset-studio-200/30"
             style={{ objectPosition: m.photoObjectPosition }}
             loading="lazy"
           />
@@ -111,7 +115,7 @@ export function AboutSection() {
   }, [])
 
   return (
-    <section
+    <MotionSection
       id="sobre"
       className="relative z-10 -mt-10 overflow-x-hidden py-20 sm:-mt-14 sm:py-24"
     >
@@ -125,6 +129,11 @@ export function AboutSection() {
               <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
                 Três profissionais, uma mesma obsessão: acabamento
               </h2>
+              <StudioLogo
+                variant="stacked"
+                decorative
+                className="mx-auto mt-5 w-[4.25rem] opacity-95 sm:mx-0 sm:w-[4.75rem]"
+              />
             </Reveal>
 
             <Reveal delay={0.05}>
@@ -142,14 +151,15 @@ export function AboutSection() {
               className="mt-10"
             >
               {team.map((m, idx) => (
-                <div
+                <Reveal
                   key={m.name}
-                  data-team-slide
-                  data-team-idx={idx}
+                  delay={idx * 0.07}
                   className="w-[82%] max-w-[19rem] shrink-0 snap-start"
                 >
-                  <TeamMemberCard m={m} reduce={reduce} layout="carousel" />
-                </div>
+                  <div data-team-slide data-team-idx={idx}>
+                    <TeamMemberCard m={m} reduce={reduce} layout="carousel" />
+                  </div>
+                </Reveal>
               ))}
             </MobileSnapCarousel>
 
@@ -250,6 +260,6 @@ export function AboutSection() {
           </div>
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

@@ -38,7 +38,7 @@ type SafeButtonProps = Omit<
 >
 
 const base =
-  'relative inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition will-change-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20 active:translate-y-[1px]'
+  'relative inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition-all duration-300 ease-out will-change-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20 active:translate-y-[1px]'
 
 const variants: Record<NonNullable<Common['variant']>, string> = {
   primary:
@@ -99,9 +99,9 @@ export function ButtonLink(
         'hover:-translate-y-[1px] hover:shadow-soft',
         className,
       )}
-      whileHover={reduce ? undefined : { y: -1, scale: 1.01 }}
+      whileHover={reduce ? undefined : { y: -2, scale: 1.02 }}
       whileTap={reduce ? undefined : { y: 0, scale: 0.99 }}
-      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
     >
       {leftIcon ? <span className="text-base">{leftIcon}</span> : null}
       {children ? <span>{children}</span> : null}
@@ -141,9 +141,9 @@ export function Button(
         'hover:-translate-y-[1px] hover:shadow-soft',
         className,
       )}
-      whileHover={reduce ? undefined : { y: -1, scale: 1.01 }}
+      whileHover={reduce ? undefined : { y: -2, scale: 1.02 }}
       whileTap={reduce ? undefined : { y: 0, scale: 0.99 }}
-      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
     >
       {leftIcon ? <span className="text-base">{leftIcon}</span> : null}
       {children ? <span>{children}</span> : null}

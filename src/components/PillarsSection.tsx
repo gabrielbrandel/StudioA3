@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
+import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 
 import kitchen from '../assets/mock/room-kitchen.svg'
@@ -100,7 +101,7 @@ function PillarCard({
         <img
           src={p.image}
           alt={`Mock de ambiente: ${p.title}`}
-          className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+          className="img-hover-zoom aspect-[4/3] w-full object-cover"
           loading="lazy"
         />
       </div>
@@ -151,7 +152,7 @@ export function PillarsSection() {
   }, [])
 
   return (
-    <section id="pilares" className="relative z-10 overflow-x-hidden py-20 sm:py-24">
+    <MotionSection id="pilares" className="relative z-10 overflow-x-hidden py-20 sm:py-24">
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
@@ -173,9 +174,11 @@ export function PillarsSection() {
           className="mt-12"
         >
           {pillars.map((p, idx) => (
-            <div key={p.title} data-pillar-slide data-pillar-idx={idx}>
-              <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
-            </div>
+            <Reveal key={p.title} delay={idx * 0.06} className="min-w-0 shrink-0 snap-start">
+              <div data-pillar-slide data-pillar-idx={idx}>
+                <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
+              </div>
+            </Reveal>
           ))}
         </MobileSnapCarousel>
 
@@ -206,6 +209,6 @@ export function PillarsSection() {
           ))}
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

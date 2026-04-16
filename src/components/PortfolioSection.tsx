@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
+import { MotionSection } from './MotionSection'
 import { Modal } from './Modal'
 import { Reveal } from './Reveal'
 import kitchen from '../assets/mock/room-kitchen.svg'
@@ -104,7 +105,7 @@ export function PortfolioSection() {
   const [selected, setSelected] = useState<PortfolioItem | null>(null)
 
   return (
-    <section
+    <MotionSection
       id="portfolio"
       className="relative z-10 -mt-14 overflow-x-hidden py-20 sm:-mt-20 sm:py-24"
     >
@@ -126,11 +127,11 @@ export function PortfolioSection() {
           className="mt-12"
         >
           {items.map((it, idx) => (
-            <motion.button
-              key={it.id}
-              type="button"
-              onClick={() => setSelected(it)}
-              className="group relative w-[min(18.75rem,calc(100%-1rem))] shrink-0 snap-start overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+            <Reveal key={it.id} delay={idx * 0.05} className="shrink-0 snap-start">
+              <motion.button
+                type="button"
+                onClick={() => setSelected(it)}
+                className="group relative w-[min(18.75rem,calc(100%-1rem))] overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
               style={{
                 borderRadius: idx === 0 ? '34px' : '28px',
                 clipPath:
@@ -140,9 +141,11 @@ export function PortfolioSection() {
                       ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
                       : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
               }}
-              whileHover={reduce ? undefined : { y: -4 }}
+              whileHover={
+                reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
+              }
               whileTap={reduce ? undefined : { scale: 0.99 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             >
               <div
                 className={
@@ -154,7 +157,7 @@ export function PortfolioSection() {
                 <img
                   src={it.image}
                   alt={`Mock de ambiente: ${it.title}`}
-                  className="h-full w-full object-cover transition duration-600 ease-out group-hover:scale-[1.03]"
+                  className="img-hover-zoom h-full w-full object-cover"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
@@ -178,6 +181,7 @@ export function PortfolioSection() {
                 </div>
               </div>
             </motion.button>
+            </Reveal>
           ))}
         </MobileSnapCarousel>
 
@@ -191,17 +195,19 @@ export function PortfolioSection() {
               <motion.button
                 type="button"
                 onClick={() => setSelected(items[0]!)}
-                className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+                className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
                 style={{ borderRadius: '34px', clipPath: 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)' }}
-                whileHover={reduce ? undefined : { y: -4 }}
+                whileHover={
+                  reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
+                }
                 whileTap={reduce ? undefined : { scale: 0.995 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="relative aspect-[16/11] w-full bg-studio-900">
                   <img
                     src={items[0]!.image}
                     alt={`Mock de ambiente: ${items[0]!.title}`}
-                    className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+                    className="img-hover-zoom h-full w-full object-cover"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
@@ -248,7 +254,7 @@ export function PortfolioSection() {
                 <motion.button
                   type="button"
                   onClick={() => setSelected(it)}
-                  className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+                  className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
                   style={{
                     borderRadius: '28px',
                     clipPath:
@@ -256,15 +262,17 @@ export function PortfolioSection() {
                         ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
                         : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
                   }}
-                  whileHover={reduce ? undefined : { y: -4 }}
+                  whileHover={
+                    reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
+                  }
                   whileTap={reduce ? undefined : { scale: 0.99 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="relative aspect-[4/3] w-full bg-studio-900">
                     <img
                       src={it.image}
                       alt={`Mock de ambiente: ${it.title}`}
-                      className="h-full w-full object-cover transition duration-600 ease-out group-hover:scale-[1.03]"
+                      className="img-hover-zoom h-full w-full object-cover"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
@@ -312,7 +320,7 @@ export function PortfolioSection() {
           </div>
         ) : null}
       </Modal>
-    </section>
+    </MotionSection>
   )
 }
 

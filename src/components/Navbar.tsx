@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ButtonLink } from './Button'
 import { IconClose, IconInstagram, IconMenu } from './Icons'
 import { SITE } from '../pages/siteConfig'
+import { StudioLogo } from './StudioLogo'
 
 type NavItem = { id: string; label: string }
 
@@ -43,6 +45,7 @@ function useActiveSection(ids: string[]) {
 }
 
 export function Navbar() {
+  const reduceMotion = useReducedMotion()
   const items: NavItem[] = useMemo(
     () => [
       { id: 'inicio', label: 'Início' },
@@ -78,88 +81,102 @@ export function Navbar() {
     setMobileNavOpen(false)
   }
 
+  /* Overlay do menu fica FORA do motion.header: Framer Motion aplica transform no header,
+   * e fixed dentro de ancestral com transform fica preso ao header — o painel não cobre a página. */
   return (
-    <header
-      className={[
-        'fixed inset-x-0 top-0 z-50',
-        'transition-all duration-300',
-        scrolled ? 'backdrop-blur-md bg-studio-200/45 shadow-ring ring-1 ring-studio-300/35' : 'bg-transparent',
-      ].join(' ')}
-    >
-      <div className="mx-auto w-full min-w-0 max-w-6xl container-px">
-        <div className="flex h-16 min-w-0 max-w-full items-center justify-between gap-2">
-          <a href="#inicio" className="group inline-flex min-w-0 items-baseline gap-2" onClick={closeMobileNav}>
-            <span className="font-display text-lg tracking-tight text-studio-900">
-              StudioA3
-            </span>
-            <span className="hidden text-xs text-studio-500 sm:inline">
-              móveis planejados
-            </span>
-            <span className="sr-only">Ir para o início</span>
-          </a>
-
-          <nav className="hidden items-center gap-1 lg:flex">
-            {items.map((item) => {
-              const isActive = item.id === active
-              return (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={[
-                    'px-3 py-2 text-[11px] font-semibold tracking-[0.22em] transition',
-                    isActive
-                      ? 'text-studio-950 underline decoration-studio-950/30 decoration-2 underline-offset-8'
-                      : 'text-studio-600 hover:text-studio-950',
-                  ].join(' ')}
-                >
-                  {item.label.toUpperCase()}
-                </a>
-              )
-            })}
-          </nav>
-
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <ButtonLink
-              href={SITE.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              size="sm"
-              variant="instagram"
-              iconOnly
-              aria-label="Abrir Instagram da StudioA3"
-              title="Instagram"
-              leftIcon={<IconInstagram className="h-5 w-5" />}
-              className="hidden rounded-full sm:inline-flex"
-            />
-            <button
-              type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-studio-900 text-white shadow-soft ring-1 ring-studio-950/15 transition hover:bg-studio-800 lg:hidden"
-              aria-expanded={mobileNavOpen}
-              aria-controls="menu-mobile"
-              onClick={() => setMobileNavOpen((v) => !v)}
+    <>
+      <motion.header
+        className={[
+          'fixed inset-x-0 top-0 z-50',
+          'transition-all duration-300',
+          scrolled ? 'backdrop-blur-md bg-studio-200/45 shadow-ring ring-1 ring-studio-300/35' : 'bg-transparent',
+        ].join(' ')}
+        initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+      >
+        <div className="mx-auto w-full min-w-0 max-w-6xl px-4 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] sm:px-6 lg:px-8">
+          <div className="flex h-20 min-w-0 max-w-full items-center justify-between gap-3 overflow-visible sm:h-[5.25rem]">
+            <a
+              href="#inicio"
+              className="group inline-flex max-w-[calc(100%-3.75rem)] min-w-0 items-center gap-2 sm:gap-3 max-lg:shrink-0 lg:max-w-[min(380px,56%)]"
+              onClick={closeMobileNav}
             >
-              <span className="sr-only">{mobileNavOpen ? 'Fechar menu' : 'Abrir menu de navegação'}</span>
-              {mobileNavOpen ? (
-                <IconClose className="h-5 w-5" />
-              ) : (
-                <IconMenu className="h-5 w-5" />
-              )}
-            </button>
+              <StudioLogo
+                variant="stacked"
+                decorative
+                className="h-[3.45rem] w-auto shrink-0 object-contain object-left drop-shadow-sm sm:h-[4.1rem] lg:h-[4.45rem]"
+              />
+              <span className="min-w-0 text-[9px] font-semibold leading-tight tracking-[0.24em] text-studio-600 sm:text-[11px] sm:leading-none sm:tracking-[0.32em]">
+                <span className="block sm:inline">MÓVEIS</span>{' '}
+                <span className="block sm:inline">PLANEJADOS</span>
+              </span>
+              <span className="sr-only">Studio A3 — Ir para o início</span>
+            </a>
+
+            <nav className="hidden items-center gap-1 lg:flex">
+              {items.map((item) => {
+                const isActive = item.id === active
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={[
+                      'px-3 py-2 text-[11px] font-semibold tracking-[0.22em] transition-colors duration-300',
+                      isActive
+                        ? 'text-studio-950 underline decoration-studio-950/30 decoration-2 underline-offset-8'
+                        : 'link-underline-grow text-studio-600 hover:text-studio-950',
+                    ].join(' ')}
+                  >
+                    {item.label.toUpperCase()}
+                  </a>
+                )
+              })}
+            </nav>
+
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+              <ButtonLink
+                href={SITE.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                size="sm"
+                variant="instagram"
+                iconOnly
+                aria-label="Abrir Instagram da StudioA3"
+                title="Instagram"
+                leftIcon={<IconInstagram className="h-5 w-5" />}
+                className="hidden rounded-full sm:inline-flex"
+              />
+              <button
+                type="button"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-studio-900 text-white shadow-soft ring-1 ring-studio-950/15 transition hover:bg-studio-800 lg:hidden"
+                aria-expanded={mobileNavOpen}
+                aria-controls="menu-mobile"
+                onClick={() => setMobileNavOpen((v) => !v)}
+              >
+                <span className="sr-only">{mobileNavOpen ? 'Fechar menu' : 'Abrir menu de navegação'}</span>
+                {mobileNavOpen ? (
+                  <IconClose className="h-5 w-5" />
+                ) : (
+                  <IconMenu className="h-5 w-5" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </motion.header>
 
       {mobileNavOpen ? (
         <>
           <button
             type="button"
-            className="fixed bottom-0 left-0 right-0 top-16 z-[48] bg-studio-950/40 backdrop-blur-[2px] lg:hidden"
+            className="fixed bottom-0 left-0 right-0 top-20 z-[100] bg-studio-950/50 backdrop-blur-[2px] sm:top-[5.25rem] lg:hidden"
             aria-label="Fechar menu"
             onClick={closeMobileNav}
           />
           <div
             id="menu-mobile"
-            className="fixed inset-x-0 bottom-0 top-16 z-[55] flex max-h-[min(100dvh,100svh)] flex-col border-t border-studio-300/35 bg-studio-100/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-2xl backdrop-blur-md lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-20 z-[110] flex max-h-[min(100dvh,100svh)] flex-col border-t border-studio-300/35 bg-studio-100/98 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-2xl backdrop-blur-md sm:top-[5.25rem] lg:hidden"
           >
             <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain py-2">
               {items.map((item) => {
@@ -198,6 +215,6 @@ export function Navbar() {
           </div>
         </>
       ) : null}
-    </header>
+    </>
   )
 }

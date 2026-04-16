@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
+import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 
 const steps = [
@@ -13,7 +14,7 @@ const steps = [
 export function ProcessSection() {
   const reduce = useReducedMotion()
   return (
-    <section
+    <MotionSection
       id="processo"
       className="relative z-10 -mt-10 overflow-hidden rounded-[34px] bg-studio-950 py-16 text-white ring-1 ring-white/10 sm:-mt-14 sm:py-20"
     >
@@ -62,7 +63,7 @@ export function ProcessSection() {
           </div>
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }
 

@@ -5,17 +5,23 @@ export default {
     extend: {
       colors: {
         studio: {
-          50: '#f7f7f8',
-          100: '#efeff1',
-          200: '#d9d9df',
-          300: '#bfc0c8',
-          400: '#9c9eaa',
-          500: '#7b7d89',
-          600: '#5e606b',
-          700: '#474954',
-          800: '#2c2d35',
-          900: '#17181d',
-          950: '#0c0d10',
+          50: '#f8f5f2',
+          100: '#efeae5',
+          200: '#ddd3cb',
+          300: '#c5b6a9',
+          400: '#a59688',
+          500: '#8f7f72',
+          600: '#75675d',
+          700: '#5c5149',
+          800: '#3d3732',
+          900: '#252220',
+          950: '#141210',
+        },
+        /** Taupe do logo Studio A3 (referência ~#9e938a) */
+        a3: {
+          taupe: '#9e938a',
+          'taupe-dark': '#8a8078',
+          'taupe-deep': '#7a7068',
         },
       },
       fontFamily: {
@@ -32,8 +38,8 @@ export default {
         display: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
       },
       boxShadow: {
-        soft: '0 12px 30px -18px rgba(0,0,0,.25)',
-        ring: '0 0 0 1px rgba(23,24,29,.08)',
+        soft: '0 12px 30px -18px rgba(37,34,32,.22)',
+        ring: '0 0 0 1px rgba(61,55,50,.1)',
       },
       borderRadius: {
         xl: '1rem',

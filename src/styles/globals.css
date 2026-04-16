@@ -24,15 +24,37 @@
 }
 
 @layer utilities {
+  /** Link: sublinhado que cresce da esquerda para a direita */
+  .link-underline-grow {
+    @apply relative inline-block;
+  }
+  .link-underline-grow::after {
+    content: '';
+    @apply pointer-events-none absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out;
+  }
+  .link-underline-grow:hover::after,
+  .link-underline-grow:focus-visible::after {
+    @apply scale-x-100;
+  }
+
+  /** Imagem: zoom leve no hover (use com grupo: group + img.img-hover-zoom) */
+  .img-hover-zoom {
+    @apply transition-transform duration-500 ease-out;
+  }
+  .group:hover .img-hover-zoom,
+  .group:focus-within .img-hover-zoom {
+    @apply scale-[1.04];
+  }
+
   .container-px {
     @apply px-4 sm:px-6 lg:px-8;
   }
 
   .grid-fade {
     background-image:
-      radial-gradient(800px 400px at 50% 0%, rgba(23, 24, 29, 0.07), transparent 60%),
-      radial-gradient(900px 500px at 0% 30%, rgba(23, 24, 29, 0.06), transparent 60%),
-      radial-gradient(900px 500px at 100% 55%, rgba(23, 24, 29, 0.05), transparent 55%);
+      radial-gradient(800px 400px at 50% 0%, rgba(61, 55, 50, 0.08), transparent 60%),
+      radial-gradient(900px 500px at 0% 30%, rgba(61, 55, 50, 0.06), transparent 60%),
+      radial-gradient(900px 500px at 100% 55%, rgba(61, 55, 50, 0.05), transparent 55%);
   }
 
   .studio-noise {

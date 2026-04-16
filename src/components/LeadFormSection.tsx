@@ -2,7 +2,9 @@ import { useMemo, useState } from 'react'
 import { buildWhatsAppLink } from '../pages/siteConfig'
 import { Button } from './Button'
 import { Container } from './Container'
+import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
+import { StudioLogo } from './StudioLogo'
 
 type FormState = {
   nome: string
@@ -50,7 +52,7 @@ export function LeadFormSection() {
   const canSubmit = state.nome.trim().length >= 2 && state.telefone.trim().length >= 8
 
   return (
-    <section
+    <MotionSection
       id="contato"
       className="relative z-10 -mt-10 overflow-x-hidden pb-24 pt-10 sm:-mt-14 sm:pb-28 sm:pt-12"
     >
@@ -85,7 +87,7 @@ export function LeadFormSection() {
 
           <Reveal delay={0.08} className="min-w-0">
             <form
-              className="min-w-0 rounded-2xl bg-studio-200/25 p-4 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:rounded-[28px] sm:p-6"
+              className="relative min-w-0 overflow-hidden rounded-2xl bg-studio-200/25 p-4 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:rounded-[28px] sm:p-6"
               onSubmit={(e) => {
                 e.preventDefault()
                 if (!canSubmit) return
@@ -96,6 +98,16 @@ export function LeadFormSection() {
                 window.setTimeout(() => setSent(false), 6000)
               }}
             >
+              <StudioLogo
+                variant="mark"
+                decorative
+                className="pointer-events-none absolute right-3 top-3 h-11 w-11 opacity-[0.22] sm:hidden"
+              />
+              <StudioLogo
+                variant="stacked"
+                decorative
+                className="pointer-events-none absolute -right-1 top-1 hidden h-[4.25rem] w-auto max-w-[4.75rem] opacity-[0.28] sm:block sm:h-[4.75rem] sm:max-w-[5.25rem]"
+              />
               <div className="grid min-w-0 gap-4 sm:grid-cols-2">
                 <div className="min-w-0 sm:col-span-1">
                   <label className="text-sm font-medium text-studio-900" htmlFor="nome">
@@ -202,7 +214,7 @@ export function LeadFormSection() {
           </Reveal>
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }
 

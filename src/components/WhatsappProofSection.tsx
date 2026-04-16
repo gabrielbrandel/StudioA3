@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
+import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 
 type Chat = {
@@ -118,7 +119,7 @@ export function WhatsappProofSection() {
   }
 
   return (
-    <section
+    <MotionSection
       id="provas"
       className="relative z-10 -mt-10 overflow-x-hidden py-20 sm:-mt-14 sm:py-24"
     >
@@ -179,15 +180,21 @@ export function WhatsappProofSection() {
             tabIndex={0}
             aria-label="Carrossel de conversas (mock)"
           >
-            {chats.map((c) => (
-              <motion.div
+            {chats.map((c, idx) => (
+              <Reveal
                 key={c.title}
+                delay={idx * 0.07}
                 className={[
                   'flex w-full min-w-0 flex-col items-center max-lg:max-w-[min(20rem,calc(100%-1rem))] max-lg:shrink-0 max-lg:snap-start',
                   'lg:snap-normal',
                 ].join(' ')}
-                whileHover={reduce ? undefined : { y: -4 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              >
+              <motion.div
+                className="w-full"
+                whileHover={
+                  reduce ? undefined : { y: -4, scale: 1.03, boxShadow: '0 16px 32px -18px rgba(37,34,32,0.15)' }
+                }
+                transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
               >
                 <p className="mb-3 text-center text-xs font-semibold tracking-[0.22em] text-studio-600">
                   {c.title.toUpperCase()}
@@ -200,6 +207,7 @@ export function WhatsappProofSection() {
                   </div>
                 </PhoneFrame>
               </motion.div>
+              </Reveal>
             ))}
           </div>
 
@@ -208,6 +216,6 @@ export function WhatsappProofSection() {
           </p>
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }
