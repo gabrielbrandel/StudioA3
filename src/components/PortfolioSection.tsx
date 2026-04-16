@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
@@ -24,8 +23,10 @@ type PortfolioItem = {
   details: string[]
 }
 
+const portfolioCardMotion =
+  'transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:hover:shadow-[0_18px_36px_-20px_rgba(37,34,32,0.2)] active:scale-[0.99]'
+
 export function PortfolioSection() {
-  const reduce = useReducedMotion()
   const items = useMemo<PortfolioItem[]>(
     () => [
       {
@@ -131,25 +132,23 @@ export function PortfolioSection() {
         >
           {items.map((it, idx) => (
             <Reveal key={it.id} delay={idx * 0.05} className="shrink-0 snap-start">
-              <motion.button
+              <button
                 type="button"
                 onClick={() => setSelected(it)}
-                className="group relative w-[min(18.75rem,calc(100%-1rem))] overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
-              style={{
-                borderRadius: idx === 0 ? '34px' : '28px',
-                clipPath:
-                  idx === 0
-                    ? 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)'
-                    : idx % 2 === 0
-                      ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
-                      : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
-              }}
-              whileHover={
-                reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
-              }
-              whileTap={reduce ? undefined : { scale: 0.99 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            >
+                className={[
+                  'group relative w-[min(18.75rem,calc(100%-1rem))] overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
+                  portfolioCardMotion,
+                ].join(' ')}
+                style={{
+                  borderRadius: idx === 0 ? '34px' : '28px',
+                  clipPath:
+                    idx === 0
+                      ? 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)'
+                      : idx % 2 === 0
+                        ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
+                        : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
+                }}
+              >
               <div
                 className={
                   idx === 0
@@ -183,7 +182,7 @@ export function PortfolioSection() {
                   ) : null}
                 </div>
               </div>
-            </motion.button>
+            </button>
             </Reveal>
           ))}
         </MobileSnapCarousel>
@@ -195,16 +194,14 @@ export function PortfolioSection() {
         <div className="mt-12 hidden lg:block">
           <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
             <Reveal className="lg:col-span-7">
-              <motion.button
+              <button
                 type="button"
                 onClick={() => setSelected(items[0]!)}
-                className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+                className={[
+                  'group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
+                  portfolioCardMotion,
+                ].join(' ')}
                 style={{ borderRadius: '34px', clipPath: 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)' }}
-                whileHover={
-                  reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
-                }
-                whileTap={reduce ? undefined : { scale: 0.995 }}
-                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="relative aspect-[16/11] w-full bg-studio-900">
                   <img
@@ -223,7 +220,7 @@ export function PortfolioSection() {
                     </div>
                   </div>
                 </div>
-              </motion.button>
+              </button>
             </Reveal>
 
             <Reveal delay={0.06} className="lg:col-span-5">
@@ -254,10 +251,13 @@ export function PortfolioSection() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {items.slice(2).map((it, idx) => (
               <Reveal key={it.id} delay={0.05 + idx * 0.03}>
-                <motion.button
+                <button
                   type="button"
                   onClick={() => setSelected(it)}
-                  className="group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20"
+                  className={[
+                    'group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
+                    portfolioCardMotion,
+                  ].join(' ')}
                   style={{
                     borderRadius: '28px',
                     clipPath:
@@ -265,11 +265,6 @@ export function PortfolioSection() {
                         ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
                         : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
                   }}
-                  whileHover={
-                    reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 18px 36px -20px rgba(37,34,32,0.2)' }
-                  }
-                  whileTap={reduce ? undefined : { scale: 0.99 }}
-                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="relative aspect-[4/3] w-full bg-studio-900">
                     <img
@@ -284,7 +279,7 @@ export function PortfolioSection() {
                       <p className="mt-1 text-xs text-white/75">{it.subtitle}</p>
                     </div>
                   </div>
-                </motion.button>
+                </button>
               </Reveal>
             ))}
           </div>

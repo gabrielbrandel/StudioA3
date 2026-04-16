@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
@@ -12,7 +11,6 @@ const steps = [
 ]
 
 export function ProcessSection() {
-  const reduce = useReducedMotion()
   return (
     <MotionSection
       id="processo"
@@ -61,11 +59,7 @@ export function ProcessSection() {
               <div className="grid grid-cols-5 gap-6">
                 {steps.map((s, idx) => (
                   <Reveal key={s.n} delay={0.05 + idx * 0.04}>
-                    <motion.div
-                      className="relative pt-2"
-                      whileHover={reduce ? undefined : { y: -3 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    >
+                    <div className="relative pt-2 transition-transform duration-200 hover:-translate-y-0.5">
                       <div className="flex items-start justify-center">
                         <div className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-sm font-semibold text-studio-950 shadow-soft ring-1 ring-white/30">
                           {s.n}
@@ -76,7 +70,7 @@ export function ProcessSection() {
                         <p className="text-sm font-semibold tracking-tight text-white">{s.t}</p>
                         <p className="mt-2 text-sm leading-relaxed text-white/70">{s.d}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   </Reveal>
                 ))}
               </div>

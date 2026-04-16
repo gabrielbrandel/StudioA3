@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
@@ -75,16 +75,15 @@ function PillarCard({
       : 'h-full'
 
   return (
-    <motion.div
+    <div
       className={[
-        'group rounded-[28px] bg-studio-200/25 p-5 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:p-7',
+        'group rounded-[28px] bg-studio-200/25 p-5 shadow-soft ring-1 ring-studio-300/35 backdrop-blur transition-transform duration-200 sm:p-7',
+        reduce ? '' : 'hover:-translate-y-1',
         stagger,
         width,
       ]
         .filter(Boolean)
         .join(' ')}
-      whileHover={reduce ? undefined : { y: -6 }}
-      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
     >
       <div
         className="overflow-hidden shadow-ring"
@@ -119,7 +118,7 @@ function PillarCard({
           </li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   )
 }
 

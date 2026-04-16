@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { ButtonLink } from './Button'
 import { Container } from './Container'
 import { MotionSection } from './MotionSection'
@@ -6,17 +5,10 @@ import { Reveal } from './Reveal'
 import { StudioLogo } from './StudioLogo'
 
 export function CtaSection() {
-  const reduce = useReducedMotion()
   return (
     <MotionSection className="relative z-10 -mt-12 overflow-x-hidden py-8 sm:-mt-16 sm:py-12">
       <Container>
-        <motion.div
-          className="relative overflow-hidden rounded-[28px] bg-studio-900 p-6 shadow-soft ring-1 ring-white/10 transition-shadow duration-300 sm:rounded-[34px] sm:p-10"
-          whileHover={
-            reduce ? undefined : { y: -3, scale: 1.02, boxShadow: '0 20px 44px -24px rgba(0,0,0,0.35)' }
-          }
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="relative overflow-hidden rounded-[28px] bg-studio-900 p-6 shadow-soft ring-1 ring-white/10 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_-24px_rgba(0,0,0,0.35)] sm:rounded-[34px] sm:p-10">
           <StudioLogo
             variant="mark"
             decorative
@@ -60,7 +52,7 @@ export function CtaSection() {
               </div>
             </Reveal>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </MotionSection>
   )

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
 import { ButtonLink } from './Button'
 import { IconClose, IconInstagram, IconMenu } from './Icons'
 import { SITE } from '../pages/siteConfig'
@@ -45,7 +44,6 @@ function useActiveSection(ids: string[]) {
 }
 
 export function Navbar() {
-  const reduceMotion = useReducedMotion()
   const items: NavItem[] = useMemo(
     () => [
       { id: 'inicio', label: 'Início' },
@@ -100,19 +98,15 @@ export function Navbar() {
     setMobileNavOpen(false)
   }
 
-  /* Overlay do menu fica FORA do motion.header: Framer Motion aplica transform no header,
-   * e fixed dentro de ancestral com transform fica preso ao header — o painel não cobre a página. */
+  /* Overlay do menu fica fora do header para `position: fixed` cobrir a viewport inteira. */
   return (
     <>
-      <motion.header
+      <header
         className={[
           'fixed inset-x-0 top-0 z-50',
           'transition-all duration-300',
           scrolled ? 'backdrop-blur-md bg-studio-200/45 shadow-ring ring-1 ring-studio-300/35' : 'bg-transparent',
         ].join(' ')}
-        initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
       >
         <div className="mx-auto w-full min-w-0 max-w-6xl px-4 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] sm:px-6 lg:px-8">
           <div className="flex h-20 min-w-0 max-w-full items-center justify-between gap-3 overflow-visible sm:h-[5.25rem]">
@@ -183,7 +177,7 @@ export function Navbar() {
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {mobileNavOpen ? (
         <>

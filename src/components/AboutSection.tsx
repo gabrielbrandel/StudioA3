@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
 import { MobileSnapCarousel } from './MobileSnapCarousel'
@@ -55,16 +55,15 @@ function TeamMemberCard({
       : 'items-start text-left sm:flex-row sm:items-center'
 
   return (
-    <motion.div
+    <div
       className={[
-        'group overflow-hidden rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30 transition-shadow duration-300',
+        'group overflow-hidden rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30 transition-[transform,box-shadow] duration-300',
+        reduce
+          ? ''
+          : 'hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-20px_rgba(37,34,32,0.16)]',
       ]
         .filter(Boolean)
         .join(' ')}
-      whileHover={
-        reduce ? undefined : { y: -3, scale: 1.03, boxShadow: '0 16px 34px -20px rgba(37,34,32,0.16)' }
-      }
-      transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={['flex flex-col gap-3', bodyLayout].join(' ')}>
         <div className="relative h-[5.5rem] w-[5.5rem] shrink-0 sm:h-24 sm:w-24">
@@ -83,7 +82,7 @@ function TeamMemberCard({
           <p className="mt-1 text-sm font-semibold text-studio-700">{m.role}</p>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -154,10 +153,11 @@ export function AboutSection() {
               delay={0.06}
               className="mt-8 min-w-0 max-w-full overflow-x-clip lg:hidden"
             >
-              <motion.div
-                className="relative w-full min-w-0 max-w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80"
-                whileHover={reduce ? undefined : { y: -2 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              <div
+                className={[
+                  'relative w-full min-w-0 max-w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80 transition-transform duration-200',
+                  reduce ? '' : 'hover:-translate-y-0.5',
+                ].join(' ')}
               >
                 <img
                   src={living}
@@ -169,7 +169,7 @@ export function AboutSection() {
                   decoding="async"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/30 via-transparent to-transparent" />
-              </motion.div>
+              </div>
             </Reveal>
 
             <MobileSnapCarousel
@@ -225,10 +225,11 @@ export function AboutSection() {
             <Reveal delay={0.05} className="min-w-0 max-w-full">
               <div className="relative mx-auto min-w-0 max-w-xl lg:mx-0">
                 <div className="relative overflow-hidden">
-                  <motion.div
-                    className="relative overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80"
-                    whileHover={reduce ? undefined : { y: -3 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  <div
+                    className={[
+                      'relative overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80 transition-transform duration-200',
+                      reduce ? '' : 'hover:-translate-y-0.5',
+                    ].join(' ')}
                   >
                     <img
                       src={living}
@@ -237,37 +238,25 @@ export function AboutSection() {
                       loading="lazy"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/35 via-transparent to-transparent" />
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    className="absolute -left-4 top-10 hidden w-[44%] overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-300/35 sm:block"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-                  >
+                  <div className="absolute -left-4 top-10 hidden w-[44%] overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-300/35 sm:block">
                     <img
                       src={closet}
                       alt="Mock de ambiente: closet"
                       className="aspect-[3/4] w-full object-cover"
                       loading="lazy"
                     />
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    className="absolute -right-4 bottom-8 hidden w-[46%] overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-300/35 sm:block"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  >
+                  <div className="absolute -right-4 bottom-8 hidden w-[46%] overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-300/35 sm:block">
                     <img
                       src={bedroom}
                       alt="Mock de ambiente: quarto"
                       className="aspect-[3/4] w-full object-cover"
                       loading="lazy"
                     />
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </Reveal>

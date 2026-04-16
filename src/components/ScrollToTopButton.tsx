@@ -1,8 +1,6 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 export function ScrollToTopButton() {
-  const reduce = useReducedMotion()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -15,18 +13,15 @@ export function ScrollToTopButton() {
   if (!visible) return null
 
   return (
-    <motion.button
+    <button
       type="button"
       className={[
         'fixed z-50 bottom-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.5rem))] right-[max(1rem,env(safe-area-inset-right))]',
         'inline-flex h-12 w-12 items-center justify-center rounded-2xl',
         'bg-white text-studio-950 shadow-soft ring-1 ring-studio-200/80',
         'hover:bg-studio-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/15',
+        'active:scale-[0.98] transition-transform',
       ].join(' ')}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileTap={reduce ? undefined : { scale: 0.98 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="Voltar ao topo"
     >
@@ -40,6 +35,6 @@ export function ScrollToTopButton() {
           strokeLinejoin="round"
         />
       </svg>
-    </motion.button>
+    </button>
   )
 }

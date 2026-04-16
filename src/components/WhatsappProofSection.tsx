@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from './Container'
@@ -82,7 +81,6 @@ function Bubble({ side, text }: { side: 'them' | 'me'; text: string }) {
 }
 
 export function WhatsappProofSection() {
-  const reduce = useReducedMotion()
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const [canLeft, setCanLeft] = useState(false)
   const [canRight, setCanRight] = useState(false)
@@ -179,7 +177,7 @@ export function WhatsappProofSection() {
             ref={scrollerRef}
             className={[
               'flex gap-4 pb-2 sm:gap-6',
-              'max-lg:snap-x max-lg:snap-proximity max-lg:touch-pan-x max-lg:overflow-x-auto max-lg:scroll-smooth',
+              'max-lg:snap-x max-lg:snap-proximity max-lg:overflow-x-auto max-lg:scroll-smooth max-lg:[touch-action:pan-x_pan-y]',
               'max-lg:[-ms-overflow-style:none] max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden',
               'lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pb-0',
             ].join(' ')}
@@ -195,13 +193,7 @@ export function WhatsappProofSection() {
                   'lg:snap-normal',
                 ].join(' ')}
               >
-              <motion.div
-                className="w-full"
-                whileHover={
-                  reduce ? undefined : { y: -4, scale: 1.03, boxShadow: '0 16px 32px -18px rgba(37,34,32,0.15)' }
-                }
-                transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <div className="w-full transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_16px_32px_-18px_rgba(37,34,32,0.15)]">
                 <p className="mb-3 text-center text-xs font-semibold tracking-[0.22em] text-studio-600">
                   {c.title.toUpperCase()}
                 </p>
@@ -212,7 +204,7 @@ export function WhatsappProofSection() {
                     ))}
                   </div>
                 </PhoneFrame>
-              </motion.div>
+              </div>
               </Reveal>
             ))}
           </div>

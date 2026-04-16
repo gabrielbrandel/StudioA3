@@ -1,19 +1,11 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { Container } from './Container'
 import { Reveal } from './Reveal'
 import { buildWhatsAppLink, SITE } from '../pages/siteConfig'
 import { StudioLogo } from './StudioLogo'
 
 export function Footer() {
-  const reduce = useReducedMotion()
   return (
-    <motion.footer
-      className="relative z-10 bg-black py-10 text-white sm:py-12"
-      initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <footer className="relative z-10 bg-black py-10 text-white sm:py-12">
       <Container>
         <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
           <Reveal delay={0}>
@@ -81,7 +73,7 @@ export function Footer() {
           <p>Site feito com React + Vite.</p>
         </Reveal>
       </Container>
-    </motion.footer>
+    </footer>
   )
 }
 

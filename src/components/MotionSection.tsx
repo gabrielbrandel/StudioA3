@@ -1,30 +1,15 @@
-import type { HTMLMotionProps } from 'framer-motion'
-import { motion, useReducedMotion } from 'framer-motion'
-import { inViewSection, instantTransition, springPop } from '../lib/motionPresets'
+import type { ComponentPropsWithoutRef } from 'react'
 
-type Props = HTMLMotionProps<'section'>
+type Props = ComponentPropsWithoutRef<'section'>
 
 const scrollAnchor = 'scroll-mt-[5.5rem]'
 
-const shown = { opacity: 1, y: 0, scale: 1 }
-
-/**
- * Seção: entra com “pulo” (spring + escala), visível ao rolar ou ao clicar nos links do menu.
- */
+/** Seção com âncora de scroll; sem animação de entrada. */
 export function MotionSection({ className, children, ...rest }: Props) {
-  const reduce = useReducedMotion()
   const mergedClass = [scrollAnchor, className].filter(Boolean).join(' ')
-
   return (
-    <motion.section
-      className={mergedClass}
-      initial={reduce ? shown : { opacity: 0, y: 36, scale: 0.98 }}
-      whileInView={shown}
-      viewport={inViewSection}
-      transition={reduce ? instantTransition() : springPop(460, 0)}
-      {...rest}
-    >
+    <section className={mergedClass} {...rest}>
       {children}
-    </motion.section>
+    </section>
   )
 }
