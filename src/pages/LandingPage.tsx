@@ -14,10 +14,10 @@ import { WhatsappFloatingButton } from '../components/WhatsappFloatingButton'
 
 export function LandingPage() {
   return (
-    <div className="relative min-h-dvh min-w-0 overflow-x-hidden bg-transparent">
+    <div className="relative min-w-0 overflow-x-clip bg-transparent">
       <StudioBackdrop />
       <Navbar />
-      <main className="min-w-0 overflow-x-hidden">
+      <main className="min-w-0 overflow-x-clip">
         <HeroSection />
         <PillarsSection />
         <PortfolioSection />

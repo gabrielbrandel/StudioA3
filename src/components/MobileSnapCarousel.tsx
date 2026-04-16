@@ -1,7 +1,8 @@
 import { forwardRef, type PropsWithChildren } from 'react'
 
+/** `snap-proximity` evita o carrossel “segurar” a rolagem vertical no celular. */
 const mobileSnapTrackClass =
-  'flex w-full min-w-0 max-w-full gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-3 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+  'flex w-full min-w-0 max-w-full touch-pan-x gap-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-3 snap-x snap-proximity [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
 
 type Props = PropsWithChildren<{
   'aria-label': string

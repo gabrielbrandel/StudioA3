@@ -9,14 +9,25 @@
     color-scheme: light;
   }
 
+  /**
+   * Scroll suave só em apontador fino: em touch, `scroll-behavior: smooth` no root deixa
+   * a rolagem “pesada” e pode parecer que a página não acompanha o dedo.
+   */
   html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
     @apply bg-studio-100 text-studio-800 antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior-y: auto;
     font-feature-settings:
       'rlig' 1,
       'calt' 1;

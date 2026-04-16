@@ -179,7 +179,7 @@ export function WhatsappProofSection() {
             ref={scrollerRef}
             className={[
               'flex gap-4 pb-2 sm:gap-6',
-              'max-lg:snap-x max-lg:snap-mandatory max-lg:overflow-x-auto max-lg:scroll-smooth',
+              'max-lg:snap-x max-lg:snap-proximity max-lg:touch-pan-x max-lg:overflow-x-auto max-lg:scroll-smooth',
               'max-lg:[-ms-overflow-style:none] max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden',
               'lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pb-0',
             ].join(' ')}
