@@ -170,13 +170,13 @@ export function Navbar() {
         <>
           <button
             type="button"
-            className="fixed bottom-0 left-0 right-0 top-20 z-[100] bg-studio-950/50 backdrop-blur-[2px] sm:top-[5.25rem] lg:hidden"
+            className="fixed bottom-0 left-0 right-0 top-20 z-[100] bg-white/80 backdrop-blur-sm sm:top-[5.25rem] lg:hidden"
             aria-label="Fechar menu"
             onClick={closeMobileNav}
           />
           <div
             id="menu-mobile"
-            className="fixed inset-x-0 bottom-0 top-20 z-[110] flex max-h-[min(100dvh,100svh)] flex-col border-t border-studio-300/35 bg-studio-100/98 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-2xl backdrop-blur-md sm:top-[5.25rem] lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-20 z-[110] flex max-h-[min(100dvh,100svh)] flex-col border-t border-studio-200/60 bg-white px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-2xl backdrop-blur-md sm:top-[5.25rem] lg:hidden"
           >
             <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain py-2">
               {items.map((item) => {
