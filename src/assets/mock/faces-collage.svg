@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f7f8"/>
+      <stop offset="1" stop-color="#e7e8ee"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="b"/>
+      <feOffset dx="0" dy="10" result="o"/>
+      <feColorMatrix in="o" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0" result="s"/>
+      <feMerge>
+        <feMergeNode in="s"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="520" height="160" rx="999" fill="url(#bg)"/>
+
+  <g filter="url(#soft)">
+    <circle cx="92" cy="80" r="46" fill="#ffffff" stroke="#d9dbe3" stroke-width="2"/>
+    <circle cx="92" cy="80" r="34" fill="#d7d9e1"/>
+    <path d="M72 102c10-16 32-16 40 0" fill="none" stroke="#9aa0ad" stroke-width="4" stroke-linecap="round"/>
+
+    <circle cx="182" cy="80" r="46" fill="#ffffff" stroke="#d9dbe3" stroke-width="2"/>
+    <circle cx="182" cy="80" r="34" fill="#cfd2db"/>
+    <path d="M162 102c10-16 32-16 40 0" fill="none" stroke="#8b909c" stroke-width="4" stroke-linecap="round"/>
+
+    <circle cx="272" cy="80" r="46" fill="#ffffff" stroke="#d9dbe3" stroke-width="2"/>
+    <circle cx="272" cy="80" r="34" fill="#e9ebf0"/>
+    <path d="M252 102c10-16 32-16 40 0" fill="none" stroke="#9aa0ad" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <text x="350" y="92" font-family="Montserrat, Segoe UI, Arial" font-size="14" font-weight="700" fill="#2c2d35">
+    +120 atendimentos
+  </text>
+  <text x="350" y="116" font-family="Montserrat, Segoe UI, Arial" font-size="12" font-weight="600" fill="#5e606b">
+    mock " social proof
+  </text>
+</svg>

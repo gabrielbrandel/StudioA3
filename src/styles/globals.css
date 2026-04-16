@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Montserrat:wght@300..800&family=Playfair+Display:wght@500..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-studio-100 text-studio-800 antialiased;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .grid-fade {
+    background-image:
+      radial-gradient(800px 400px at 50% 0%, rgba(23, 24, 29, 0.07), transparent 60%),
+      radial-gradient(900px 500px at 0% 30%, rgba(23, 24, 29, 0.06), transparent 60%),
+      radial-gradient(900px 500px at 100% 55%, rgba(23, 24, 29, 0.05), transparent 55%);
+  }
+
+  .studio-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+}
+
