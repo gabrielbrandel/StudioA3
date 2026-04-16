@@ -57,7 +57,7 @@ function TeamMemberCard({
   return (
     <motion.div
       className={[
-        'group rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30 transition-shadow duration-300',
+        'group overflow-hidden rounded-2xl bg-studio-200/20 p-5 shadow-ring ring-1 ring-studio-300/30 transition-shadow duration-300',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -117,16 +117,16 @@ export function AboutSection() {
   return (
     <MotionSection
       id="sobre"
-      className="relative z-10 -mt-10 overflow-x-hidden py-20 sm:-mt-14 sm:py-24"
+      className="relative z-10 -mt-10 overflow-x-clip py-14 sm:-mt-14 sm:py-20 md:py-24"
     >
-      <Container>
-        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="order-2 lg:order-1 lg:col-span-6">
-            <Reveal>
+      <Container className="min-w-0">
+        <div className="grid w-full min-w-0 max-w-full items-start gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="min-w-0 max-w-full lg:col-span-6">
+            <Reveal className="min-w-0 max-w-full">
               <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
                 SOBRE
               </p>
-              <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
+              <h2 className="mt-4 max-w-full text-balance break-words font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
                 Três profissionais, uma mesma obsessão: acabamento
               </h2>
               <StudioLogo
@@ -136,19 +136,47 @@ export function AboutSection() {
               />
             </Reveal>
 
-            <Reveal delay={0.05}>
-              <p className="mt-5 text-base leading-relaxed text-studio-700">
-                A StudioA3 é uma marcenaria familiar para móveis planejados sob medida. Você
-                conversa com quem projeta e executa — isso reduz ruído, acelera decisões e
-                mantém o padrão visual do início ao fim.
+            <Reveal delay={0.05} className="min-w-0 max-w-full">
+              <p className="mt-5 max-w-full text-sm leading-relaxed text-studio-700 sm:text-base">
+                <span className="lg:hidden">
+                  Marcenaria familiar: você fala com quem projeta e monta — menos ruído, mais
+                  acabamento.
+                </span>
+                <span className="hidden lg:inline">
+                  A StudioA3 é uma marcenaria familiar para móveis planejados sob medida. Você
+                  conversa com quem projeta e executa — isso reduz ruído, acelera decisões e
+                  mantém o padrão visual do início ao fim.
+                </span>
               </p>
+            </Reveal>
+
+            <Reveal
+              delay={0.06}
+              className="mt-8 min-w-0 max-w-full overflow-x-clip lg:hidden"
+            >
+              <motion.div
+                className="relative w-full min-w-0 max-w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80"
+                whileHover={reduce ? undefined : { y: -2 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <img
+                  src={living}
+                  alt="Mock de ambiente: sala integrada"
+                  width={1600}
+                  height={1100}
+                  className="block aspect-[16/11] h-auto w-full max-w-full min-w-0 object-cover object-[center_56%] grayscale sm:aspect-[4/3] sm:object-center"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/30 via-transparent to-transparent" />
+              </motion.div>
             </Reveal>
 
             <MobileSnapCarousel
               ref={teamScrollRef}
               maxBreakpoint="md"
               aria-label="Equipe StudioA3"
-              className="mt-10"
+              className="mt-8 lg:mt-10"
             >
               {team.map((m, idx) => (
                 <Reveal
@@ -193,24 +221,10 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2 lg:col-span-6">
-            <Reveal delay={0.05}>
-              <div className="relative mx-auto max-w-xl lg:mx-0">
-                <motion.div
-                  className="relative overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80 lg:hidden"
-                  whileHover={reduce ? undefined : { y: -3 }}
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <img
-                    src={living}
-                    alt="Mock de ambiente: sala integrada"
-                    className="aspect-[4/5] w-full object-cover grayscale"
-                    loading="lazy"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/35 via-transparent to-transparent" />
-                </motion.div>
-
-                <div className="relative hidden overflow-hidden lg:block">
+          <div className="hidden min-w-0 max-w-full lg:col-span-6 lg:block">
+            <Reveal delay={0.05} className="min-w-0 max-w-full">
+              <div className="relative mx-auto min-w-0 max-w-xl lg:mx-0">
+                <div className="relative overflow-hidden">
                   <motion.div
                     className="relative overflow-hidden rounded-2xl shadow-soft ring-1 ring-studio-200/80"
                     whileHover={reduce ? undefined : { y: -3 }}

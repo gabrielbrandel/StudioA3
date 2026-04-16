@@ -54,7 +54,7 @@ export function LeadFormSection() {
   return (
     <MotionSection
       id="contato"
-      className="relative z-10 -mt-10 overflow-x-hidden pb-24 pt-10 sm:-mt-14 sm:pb-28 sm:pt-12"
+      className="relative z-10 -mt-10 overflow-x-hidden pb-20 pt-8 sm:-mt-14 sm:pb-28 sm:pt-12"
     >
       <Container className="min-w-0">
         <div className="grid min-w-0 gap-8 sm:gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
@@ -66,17 +66,22 @@ export function LeadFormSection() {
               <h2 className="mt-4 text-balance font-display text-2xl tracking-tight text-studio-950 sm:text-4xl">
                 Solicite seu orçamento
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-studio-700">
-                Preencha os dados e envie. Para acelerar o retorno, o envio já abre o
-                WhatsApp com a mensagem pronta.
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-studio-700 sm:mt-4 sm:text-base">
+                Envio abre o WhatsApp com a mensagem pronta.
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mt-6 rounded-2xl bg-studio-50 p-4 shadow-ring sm:p-6">
-                <p className="text-sm font-semibold text-studio-900">
-                  Dica para maior precisão
+              <details className="mt-5 rounded-2xl bg-studio-50 p-4 shadow-ring sm:hidden">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-studio-900 [&::-webkit-details-marker]:hidden">
+                  Dica para orçamento mais preciso
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-studio-700">
+                  Se já tiver medidas ou planta, mencione na mensagem.
                 </p>
+              </details>
+              <div className="mt-6 hidden rounded-2xl bg-studio-50 p-4 shadow-ring sm:block sm:p-6">
+                <p className="text-sm font-semibold text-studio-900">Dica para maior precisão</p>
                 <p className="mt-2 text-sm leading-relaxed text-studio-700">
                   Se já tiver medidas aproximadas ou planta do apartamento, mencione na
                   mensagem. Isso ajuda a equipe a estimar melhor o projeto.

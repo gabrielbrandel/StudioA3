@@ -8,10 +8,10 @@ import { StudioLogo } from './StudioLogo'
 export function CtaSection() {
   const reduce = useReducedMotion()
   return (
-    <MotionSection className="relative z-10 -mt-12 overflow-x-hidden py-10 sm:-mt-16 sm:py-12">
+    <MotionSection className="relative z-10 -mt-12 overflow-x-hidden py-8 sm:-mt-16 sm:py-12">
       <Container>
         <motion.div
-          className="relative overflow-hidden rounded-[34px] bg-studio-900 p-8 shadow-soft ring-1 ring-white/10 transition-shadow duration-300 sm:p-10"
+          className="relative overflow-hidden rounded-[28px] bg-studio-900 p-6 shadow-soft ring-1 ring-white/10 transition-shadow duration-300 sm:rounded-[34px] sm:p-10"
           whileHover={
             reduce ? undefined : { y: -3, scale: 1.02, boxShadow: '0 20px 44px -24px rgba(0,0,0,0.35)' }
           }
@@ -30,13 +30,16 @@ export function CtaSection() {
           <div className="relative grid gap-6 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
             <Reveal delay={0} y={16}>
               <div>
-                <p className="text-sm font-medium text-white/80">CTA</p>
-                <h3 className="mt-3 font-display text-3xl tracking-tight text-white sm:text-4xl">
+                <p className="hidden text-sm font-medium text-white/80 sm:block">CTA</p>
+                <h3 className="mt-0 font-display text-2xl tracking-tight text-white sm:mt-3 sm:text-3xl md:text-4xl">
                   Transforme seu apartamento com móveis planejados
                 </h3>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-                  Chame no WhatsApp para um primeiro atendimento ou envie o formulário com
-                  seu ambiente e objetivo. A StudioA3 responde rápido.
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75 sm:mt-4 sm:text-base">
+                  <span className="sm:hidden">WhatsApp ou formulário — resposta rápida.</span>
+                  <span className="hidden sm:inline">
+                    Chame no WhatsApp para um primeiro atendimento ou envie o formulário com
+                    seu ambiente e objetivo. A StudioA3 responde rápido.
+                  </span>
                 </p>
               </div>
             </Reveal>

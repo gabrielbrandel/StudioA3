@@ -8,14 +8,14 @@ export function Footer() {
   const reduce = useReducedMotion()
   return (
     <motion.footer
-      className="relative z-10 bg-black py-12 text-white"
+      className="relative z-10 bg-black py-10 text-white sm:py-12"
       initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
       <Container>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
           <Reveal delay={0}>
             <div className="space-y-3">
               <StudioLogo

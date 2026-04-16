@@ -107,7 +107,7 @@ export function PortfolioSection() {
   return (
     <MotionSection
       id="portfolio"
-      className="relative z-10 -mt-14 overflow-x-hidden py-20 sm:-mt-20 sm:py-24"
+      className="relative z-10 -mt-14 overflow-x-hidden py-14 sm:-mt-20 sm:py-20 md:py-24"
     >
       <Container>
         <Reveal>
@@ -115,16 +115,19 @@ export function PortfolioSection() {
           <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
             Um fluxo visual contínuo — do conceito ao detalhe
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-studio-700">
-            Imagens fictícias (SVG) para você enxergar composição, ritmo e hierarquia. Depois é
-            só substituir por fotos reais dos seus projetos.
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-studio-700 sm:text-base">
+            <span className="lg:hidden">Mocks em SVG — troque por fotos reais quando quiser.</span>
+            <span className="hidden lg:inline">
+              Imagens fictícias (SVG) para você enxergar composição, ritmo e hierarquia. Depois é
+              só substituir por fotos reais dos seus projetos.
+            </span>
           </p>
         </Reveal>
 
         <MobileSnapCarousel
           maxBreakpoint="lg"
           aria-label="Projetos do portfólio StudioA3"
-          className="mt-12"
+          className="mt-8 sm:mt-12"
         >
           {items.map((it, idx) => (
             <Reveal key={it.id} delay={idx * 0.05} className="shrink-0 snap-start">

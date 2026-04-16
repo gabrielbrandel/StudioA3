@@ -16,7 +16,7 @@ export function ProcessSection() {
   return (
     <MotionSection
       id="processo"
-      className="relative z-10 -mt-10 overflow-hidden rounded-[34px] bg-studio-950 py-16 text-white ring-1 ring-white/10 sm:-mt-14 sm:py-20"
+      className="relative z-10 -mt-10 overflow-hidden rounded-[28px] bg-studio-950 py-12 text-white ring-1 ring-white/10 sm:-mt-14 sm:rounded-[34px] sm:py-16 md:py-20"
     >
       <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-24 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
@@ -27,12 +27,33 @@ export function ProcessSection() {
             Do primeiro contato à montagem — com clareza
           </h2>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/70">
-            Um fluxo pensado para apartamentos novos: rápido, organizado e com acompanhamento
-            direto com especialistas.
+            <span className="lg:hidden">
+              Fluxo rápido para apartamentos novos, com acompanhamento direto.
+            </span>
+            <span className="hidden lg:inline">
+              Um fluxo pensado para apartamentos novos: rápido, organizado e com acompanhamento
+              direto com especialistas.
+            </span>
           </p>
         </Reveal>
 
-        <div className="mt-12 w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-10 space-y-3 lg:hidden">
+          {steps.map((s) => (
+            <Reveal key={s.n}>
+              <div className="flex gap-3 rounded-2xl bg-white/6 p-4 ring-1 ring-white/10 backdrop-blur">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-xs font-semibold text-studio-950 shadow-soft ring-1 ring-white/30">
+                  {s.n}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold tracking-tight text-white">{s.t}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/70">{s.d}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-12 hidden w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain pb-2 lg:block [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="min-w-[980px] px-1">
             <div className="relative">
               <div className="absolute left-10 right-10 top-[22px] h-px bg-white/15" />

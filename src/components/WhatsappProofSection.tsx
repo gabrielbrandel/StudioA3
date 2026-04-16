@@ -121,26 +121,32 @@ export function WhatsappProofSection() {
   return (
     <MotionSection
       id="provas"
-      className="relative z-10 -mt-10 overflow-x-hidden py-20 sm:-mt-14 sm:py-24"
+      className="relative z-10 -mt-10 overflow-x-hidden py-14 sm:-mt-14 sm:py-20 md:py-24"
     >
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
             PROVA SOCIAL
           </p>
-          <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
-            Conversas reais (mock) — o jeito StudioA3 de atender
+          <h2 className="mt-4 font-display text-[1.65rem] leading-snug tracking-tight text-studio-950 sm:text-3xl sm:leading-none md:text-4xl">
+            <span className="lg:hidden">Atendimento no estilo WhatsApp (mock)</span>
+            <span className="hidden lg:inline">
+              Conversas reais (mock) — o jeito StudioA3 de atender
+            </span>
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-studio-700">
-            Visual inspirado em prints de WhatsApp para transmitir proximidade e velocidade de
-            resposta. Você pode trocar por prints verdadeiros depois.
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-studio-700 sm:mt-4 sm:text-base">
+            <span className="lg:hidden">Inspirado em conversas reais — substitua por prints depois.</span>
+            <span className="hidden lg:inline">
+              Visual inspirado em prints de WhatsApp para transmitir proximidade e velocidade de
+              resposta. Você pode trocar por prints verdadeiros depois.
+            </span>
           </p>
         </Reveal>
 
         <div className="relative mt-10">
           <div className="pointer-events-none absolute inset-y-0 right-0 z-20 block w-14 bg-gradient-to-l from-studio-100/70 to-transparent lg:hidden" />
 
-          <div className="absolute right-0 top-0 z-30 hidden gap-2 sm:flex lg:hidden">
+          <div className="absolute right-0 top-0 z-30 flex gap-2 lg:hidden">
             <button
               type="button"
               onClick={() => scrollByDir(-1)}

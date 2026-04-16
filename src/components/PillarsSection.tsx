@@ -77,7 +77,7 @@ function PillarCard({
   return (
     <motion.div
       className={[
-        'group rounded-[28px] bg-studio-200/25 p-7 shadow-soft ring-1 ring-studio-300/35 backdrop-blur',
+        'group rounded-[28px] bg-studio-200/25 p-5 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:p-7',
         stagger,
         width,
       ]
@@ -111,7 +111,7 @@ function PillarCard({
       </p>
       <h3 className="mt-3 text-xl font-semibold tracking-tight text-studio-950">{p.title}</h3>
 
-      <ul className="mt-5 space-y-3 text-sm leading-relaxed text-studio-700">
+      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-studio-700 max-md:space-y-2.5 sm:mt-5 max-md:[&>li:nth-child(3)]:hidden">
         {p.bullets.map((b) => (
           <li key={b} className="flex gap-3">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-studio-900/35" />
@@ -152,7 +152,7 @@ export function PillarsSection() {
   }, [])
 
   return (
-    <MotionSection id="pilares" className="relative z-10 overflow-x-hidden py-20 sm:py-24">
+    <MotionSection id="pilares" className="relative z-10 overflow-x-hidden py-14 sm:py-20 md:py-24">
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
@@ -161,9 +161,14 @@ export function PillarsSection() {
           <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
             Três frentes, um só time familiar
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-studio-700">
-            Um fluxo completo para móveis planejados: do olhar de designer à leitura técnica da
-            arquiteta, até a execução impecável na montagem.
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-studio-700 sm:text-base">
+            <span className="lg:hidden">
+              Do conceito à montagem: um time único para móveis planejados.
+            </span>
+            <span className="hidden lg:inline">
+              Um fluxo completo para móveis planejados: do olhar de designer à leitura técnica da
+              arquiteta, até a execução impecável na montagem.
+            </span>
           </p>
         </Reveal>
 
@@ -171,7 +176,7 @@ export function PillarsSection() {
           ref={scrollerRef}
           maxBreakpoint="md"
           aria-label="Pilares do atendimento StudioA3"
-          className="mt-12"
+          className="mt-8 sm:mt-12"
         >
           {pillars.map((p, idx) => (
             <Reveal key={p.title} delay={idx * 0.06} className="min-w-0 shrink-0 snap-start">
