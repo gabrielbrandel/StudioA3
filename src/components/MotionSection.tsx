@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 
 type Props = ComponentPropsWithoutRef<'section'>
 
-const scrollAnchor = 'scroll-mt-[5.5rem]'
+const scrollAnchor = 'scroll-mt-28 sm:scroll-mt-32'
 
 /** Seção com âncora de scroll; sem animação de entrada. */
 export function MotionSection({ className, children, ...rest }: Props) {

@@ -54,7 +54,7 @@ export function LeadFormSection() {
   return (
     <MotionSection
       id="contato"
-      className="relative z-10 -mt-10 overflow-x-hidden pb-20 pt-8 sm:-mt-14 sm:pb-28 sm:pt-12"
+      className="relative z-10 overflow-x-hidden pb-20 pt-8 sm:pb-28 sm:pt-12"
     >
       <Container className="min-w-0">
         <div className="grid min-w-0 gap-8 sm:gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">

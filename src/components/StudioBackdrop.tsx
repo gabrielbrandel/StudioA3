@@ -1,4 +1,29 @@
-export function StudioBackdrop() {
+type StudioBackdropProps = {
+  /** `dark`: fundo para shell Creatix (cartões claros sobre escuro). */
+  mood?: 'light' | 'dark'
+}
+
+export function StudioBackdrop({ mood = 'light' }: StudioBackdropProps) {
+  if (mood === 'dark') {
+    return (
+      <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden bg-studio-950">
+        <div
+          className="absolute -left-[18%] top-[6%] h-[640px] w-[920px] rotate-[-7deg] bg-studio-900/55"
+          style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 82%, 72% 100%, 0 90%)' }}
+        />
+        <div
+          className="absolute -right-[14%] top-[32%] h-[680px] w-[900px] rotate-[9deg] bg-studio-800/35"
+          style={{ clipPath: 'polygon(0 0, 90% 0, 100% 16%, 100% 100%, 8% 100%, 0 88%)' }}
+        />
+        <div className="absolute -left-32 top-[-10%] h-[480px] w-[480px] rounded-full bg-studio-800/30 blur-3xl" />
+        <div className="absolute right-[-8%] top-[18%] h-[560px] w-[560px] rounded-full bg-studio-700/25 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(980px_520px_at_50%_0%,rgba(239,234,229,.07),transparent_58%)]" />
+        <div className="studio-noise absolute inset-0 opacity-[0.14] mix-blend-soft-light" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/35" />
+      </div>
+    )
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
       {/* slabs com “recorte” (cinza) */}

@@ -5,7 +5,7 @@ import { StudioLogo } from './StudioLogo'
 
 export function Footer() {
   return (
-    <footer className="relative z-10 bg-black py-10 text-white sm:py-12">
+    <footer className="relative z-10 mt-6 rounded-t-[1.75rem] bg-studio-900 py-10 text-studio-50 ring-1 ring-white/10 sm:mt-8 sm:rounded-t-[2rem] sm:py-12">
       <Container>
         <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
           <Reveal delay={0}>

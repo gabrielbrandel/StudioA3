@@ -6,7 +6,7 @@ import { StudioLogo } from './StudioLogo'
 
 export function CtaSection() {
   return (
-    <MotionSection className="relative z-10 -mt-12 overflow-x-hidden py-8 sm:-mt-16 sm:py-12">
+    <MotionSection className="relative z-10 overflow-x-hidden py-8 sm:py-12">
       <Container>
         <div className="relative overflow-hidden rounded-[28px] bg-studio-900 p-6 shadow-soft ring-1 ring-white/10 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_-24px_rgba(0,0,0,0.35)] sm:rounded-[34px] sm:p-10">
           <StudioLogo

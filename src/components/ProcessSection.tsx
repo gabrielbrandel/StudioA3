@@ -14,7 +14,7 @@ export function ProcessSection() {
   return (
     <MotionSection
       id="processo"
-      className="relative z-10 -mt-10 overflow-hidden rounded-[28px] bg-studio-950 py-12 text-white ring-1 ring-white/10 sm:-mt-14 sm:rounded-[34px] sm:py-16 md:py-20"
+      className="relative z-10 overflow-hidden rounded-[28px] bg-studio-950 py-12 text-white ring-1 ring-white/10 sm:rounded-[34px] sm:py-16 md:py-20"
     >
       <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-24 h-96 w-96 rounded-full bg-white/10 blur-3xl" />

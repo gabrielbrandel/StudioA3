@@ -116,7 +116,7 @@ export function AboutSection() {
   return (
     <MotionSection
       id="sobre"
-      className="relative z-10 -mt-10 overflow-x-clip py-14 sm:-mt-14 sm:py-20 md:py-24"
+      className="relative z-10 overflow-x-clip py-14 sm:py-20 md:py-24"
     >
       <Container className="min-w-0">
         <div className="grid w-full min-w-0 max-w-full items-start gap-10 lg:grid-cols-12 lg:gap-12">

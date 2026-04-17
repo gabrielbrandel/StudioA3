@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   /**
@@ -25,7 +25,7 @@
   }
 
   body {
-    @apply bg-studio-100 text-studio-800 antialiased;
+    @apply bg-studio-950 text-studio-100 antialiased;
     overflow-x: clip;
     overscroll-behavior-y: auto;
     font-feature-settings:
@@ -77,6 +77,19 @@
   .studio-noise {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
+  }
+
+  @keyframes studio-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-studio-marquee {
+    animation: studio-marquee 36s linear infinite;
   }
 }
 

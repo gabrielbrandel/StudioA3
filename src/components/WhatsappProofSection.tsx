@@ -119,7 +119,7 @@ export function WhatsappProofSection() {
   return (
     <MotionSection
       id="provas"
-      className="relative z-10 -mt-10 overflow-x-hidden py-14 sm:-mt-14 sm:py-20 md:py-24"
+      className="relative z-10 overflow-x-hidden py-14 sm:py-20 md:py-24"
     >
       <Container>
         <Reveal>
