@@ -1,14 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { ButtonLink } from './Button'
 import { HeroStatsStrip } from './HeroStatsStrip'
-import { HERO_DESKTOP_IMAGE, HERO_FEATURE_CAPTION } from '../data/studioMedia'
-import heroRoom from '../assets/mock/room-kitchen.svg'
+import { HERO_SLIDES } from '../data/studioMedia'
 import facesCollage from '../assets/mock/faces-collage.svg'
 
 const tags = ['Projeto 3D', 'MDF premium', 'Montagem impecável'] as const
 
+/** Intervalo entre trocas automáticas do carrossel (ms). */
+const AUTOPLAY_INTERVAL = 3000
+
 export function HeroSection() {
-  const [heroSrc, setHeroSrc] = useState(HERO_DESKTOP_IMAGE)
+  const reduce = Boolean(useReducedMotion())
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (reduce || HERO_SLIDES.length <= 1) return
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % HERO_SLIDES.length)
+    }, AUTOPLAY_INTERVAL)
+    return () => window.clearInterval(id)
+  }, [reduce])
 
   return (
     <section
@@ -27,43 +39,63 @@ export function HeroSection() {
                 'lg:min-h-[min(560px,72vh)] lg:rounded-3xl lg:bg-studio-200/20 lg:ring-1 lg:ring-studio-300/25',
               ].join(' ')}
             >
-              <img
-                src={heroSrc}
-                alt={HERO_FEATURE_CAPTION}
-                className="absolute inset-0 h-full w-full object-cover object-[center_26%] lg:object-[center_24%]"
-                loading="eager"
-                decoding="async"
-                onError={() => setHeroSrc(heroRoom)}
-              />
+              {/* Carrossel: slides sobrepostos com crossfade. */}
+              {HERO_SLIDES.map((slide, i) => {
+                const isActive = i === index
+                return (
+                  <img
+                    key={slide.src}
+                    src={slide.src}
+                    alt={isActive ? slide.alt : ''}
+                    aria-hidden={!isActive}
+                    className={[
+                      'absolute inset-0 h-full w-full object-cover object-[center_26%] transition-opacity duration-1000 ease-in-out lg:object-[center_24%]',
+                      isActive ? 'opacity-100' : 'opacity-0',
+                    ].join(' ')}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                )
+              })}
 
-              {/* Faixa branca translúcida — do topo da imagem até o fim da logo. */}
+              {/* Indicadores do carrossel */}
+              {HERO_SLIDES.length > 1 ? (
+                <div
+                  className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-studio-950/35 px-2 py-1 backdrop-blur-md sm:bottom-4"
+                  role="tablist"
+                  aria-label="Navegar slides do hero"
+                >
+                  {HERO_SLIDES.map((_, i) => {
+                    const isActive = i === index
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        aria-label={`Ir para slide ${i + 1}`}
+                        onClick={() => setIndex(i)}
+                        className={[
+                          'h-1.5 rounded-full transition-all duration-500 ease-out',
+                          isActive ? 'w-6 bg-white' : 'w-1.5 bg-white/55 hover:bg-white/80',
+                        ].join(' ')}
+                      />
+                    )
+                  })}
+                </div>
+              ) : null}
+
+              {/* Faixa branca translúcida com a logo, centralizada vertical e horizontalmente. */}
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-center bg-white/45 px-4 pt-1.5 pb-3 backdrop-blur-[2px] sm:pt-2 sm:pb-4 lg:pt-2 lg:pb-5"
+                className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center bg-white/65 px-4 py-4 backdrop-blur-[3px] sm:py-5 lg:py-6"
                 aria-hidden
               >
                 <img
                   src="/brand/logo-framed-white.png"
                   alt=""
                   aria-hidden
-                  className="w-[min(78%,21rem)] max-w-full opacity-100 brightness-95 contrast-125 drop-shadow-[0_6px_20px_rgba(0,0,0,0.25)] sm:w-[min(70%,24rem)] lg:w-[min(68%,26rem)]"
+                  className="w-[min(78%,21rem)] max-w-full opacity-100 brightness-90 contrast-150 saturate-110 drop-shadow-[0_6px_22px_rgba(0,0,0,0.3)] sm:w-[min(70%,24rem)] lg:w-[min(68%,26rem)]"
                 />
-              </div>
-
-              {/* Gradient subtil na base para legibilidade da legenda DESTAQUE. */}
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/55 via-transparent to-transparent"
-                aria-hidden
-              />
-
-              <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 lg:p-6 lg:pb-6">
-                <div className="rounded-2xl border border-white/15 bg-studio-950/35 p-3.5 shadow-lg backdrop-blur-xl sm:p-4 lg:max-w-xl lg:bg-studio-950/30">
-                  <p className="text-[10px] font-semibold tracking-[0.22em] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.65)] sm:text-xs">
-                    DESTAQUE
-                  </p>
-                  <p className="mt-2 text-[13px] font-medium leading-snug text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.55)] sm:text-sm sm:leading-relaxed">
-                    {HERO_FEATURE_CAPTION}
-                  </p>
-                </div>
               </div>
             </div>
           </div>

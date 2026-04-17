@@ -4,6 +4,22 @@ export const HERO_DESKTOP_IMAGE = '/media/hero-cozinha-destaque.png'
 export const HERO_FEATURE_CAPTION =
   'Cozinha moderna e sofisticada, com marcenaria planejada em tons claros, bancada e backsplash em mármore, iluminação em LED embutida e acabamento minimalista elegante.'
 
+/** Carrossel automático do hero — troca a foto mantendo o resto fixo. */
+export const HERO_SLIDES: Array<{ src: string; alt: string }> = [
+  {
+    src: HERO_DESKTOP_IMAGE,
+    alt: HERO_FEATURE_CAPTION,
+  },
+  {
+    src: '/media/hero-slide-2.png',
+    alt: 'Cozinha com armários escuros, bancada em mármore branco e decoração com vasos em tons dourados.',
+  },
+  {
+    src: '/media/hero-slide-3.png',
+    alt: 'Sala de jantar integrada com mesa oval em madeira, cadeiras estofadas claras e pendentes circulares em LED.',
+  },
+]
+
 /** Pilares — secção Montagem & Execução (`public`). */
 export const PILLAR_MONTAGEM_EXECUCAO_IMAGE = '/media/pillar-montagem-execucao.png'
 
