@@ -38,14 +38,14 @@ export function HeroSection() {
 
               {/* Faixa branca translúcida — do topo da imagem até o fim da logo. */}
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-center bg-white/45 px-4 py-4 backdrop-blur-[2px] sm:py-5 lg:py-6"
+                className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-center bg-white/45 px-4 pt-1.5 pb-3 backdrop-blur-[2px] sm:pt-2 sm:pb-4 lg:pt-2 lg:pb-5"
                 aria-hidden
               >
                 <img
                   src="/brand/logo-framed-white.png"
                   alt=""
                   aria-hidden
-                  className="w-[min(78%,21rem)] max-w-full opacity-[0.85] drop-shadow-[0_6px_20px_rgba(0,0,0,0.18)] sm:w-[min(70%,24rem)] lg:w-[min(68%,26rem)]"
+                  className="w-[min(78%,21rem)] max-w-full opacity-100 brightness-95 contrast-125 drop-shadow-[0_6px_20px_rgba(0,0,0,0.25)] sm:w-[min(70%,24rem)] lg:w-[min(68%,26rem)]"
                 />
               </div>
 
