@@ -3,9 +3,6 @@ import { useReducedMotion } from 'framer-motion'
 import { ButtonLink } from './Button'
 import { HeroStatsStrip } from './HeroStatsStrip'
 import { HERO_SLIDES } from '../data/studioMedia'
-import facesCollage from '../assets/mock/faces-collage.svg'
-
-const tags = ['Projeto 3D', 'MDF premium', 'Montagem impecável'] as const
 
 /** Intervalo entre trocas automáticas do carrossel (ms). */
 const AUTOPLAY_INTERVAL = 3000
@@ -116,37 +113,6 @@ export function HeroSection() {
               <ButtonLink href="#contato" size="lg" variant="primary" className="max-sm:py-3 max-sm:text-[0.9rem]">
                 Solicitar orçamento
               </ButtonLink>
-              <ButtonLink
-                href="#portfolio"
-                variant="secondary"
-                size="lg"
-                className="max-sm:py-3 max-sm:text-[0.9rem]"
-              >
-                Ver portfólio
-              </ButtonLink>
-            </div>
-
-            <div className="mt-6 flex max-w-full flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:justify-center lg:items-start lg:justify-start">
-              <img
-                src={facesCollage}
-                alt="Clientes e equipe Studio A3"
-                className="h-[52px] max-w-full object-contain sm:h-[68px]"
-                loading="lazy"
-              />
-              <p className="max-w-sm text-center text-xs leading-relaxed text-studio-600 sm:text-sm lg:text-left">
-                Atendimento próximo, do primeiro contato à montagem no seu apartamento.
-              </p>
-            </div>
-
-            <div className="mt-5 flex flex-wrap justify-center gap-2 sm:mt-8 lg:justify-start">
-              {tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-studio-300/40 bg-studio-200/35 px-3 py-1.5 text-center text-[10px] font-semibold tracking-[0.16em] text-studio-800 shadow-sm sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]"
-                >
-                  {t.toUpperCase()}
-                </span>
-              ))}
             </div>
           </div>
         </div>
