@@ -73,10 +73,7 @@ function PillarCard({
           : ''
       : ''
 
-  const width =
-    layout === 'carousel'
-      ? 'w-[min(20rem,calc(100%-1rem))] shrink-0 snap-start'
-      : 'h-full'
+  const width = layout === 'carousel' ? 'w-full' : 'h-full'
 
   return (
     <div
@@ -182,11 +179,14 @@ export function PillarsSection() {
           className="mt-8 sm:mt-12"
         >
           {pillars.map((p, idx) => (
-            <Reveal key={p.title} delay={idx * 0.06} className="min-w-0 shrink-0 snap-start">
-              <div data-pillar-slide data-pillar-idx={idx}>
-                <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
-              </div>
-            </Reveal>
+            <div
+              key={p.title}
+              data-pillar-slide
+              data-pillar-idx={idx}
+              className="w-[min(20rem,calc(100vw-3rem))] shrink-0 snap-start sm:w-[min(22rem,calc(100vw-4rem))]"
+            >
+              <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
+            </div>
           ))}
         </MobileSnapCarousel>
 
