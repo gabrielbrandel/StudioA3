@@ -5,14 +5,16 @@ import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 
+import { PILLAR_MONTAGEM_EXECUCAO_IMAGE } from '../data/studioMedia'
 import kitchen from '../assets/mock/room-kitchen.svg'
 import living from '../assets/mock/room-living.svg'
-import office from '../assets/mock/room-office.svg'
 
 type Pillar = {
   title: string
   subtitle: string
   image: string
+  /** Texto alternativo da foto (quando não for mock SVG). */
+  imageAlt?: string
   bullets: string[]
 }
 
@@ -40,7 +42,9 @@ const pillars: Pillar[] = [
   {
     title: 'Montagem & Execução',
     subtitle: 'Precisão no dia da instalação',
-    image: office,
+    image: PILLAR_MONTAGEM_EXECUCAO_IMAGE,
+    imageAlt:
+      'Oficina Studio A3: marceneiro com proteção e tupia a trabalhar painel em madeira, medições ao lado.',
     bullets: [
       'Montagem com cuidado e limpeza',
       'Ajustes finos no local',
@@ -99,7 +103,7 @@ function PillarCard({
       >
         <img
           src={p.image}
-          alt={`Mock de ambiente: ${p.title}`}
+          alt={p.imageAlt ?? `Referência visual: ${p.title}`}
           className="img-hover-zoom aspect-[4/3] w-full object-cover"
           loading="lazy"
         />

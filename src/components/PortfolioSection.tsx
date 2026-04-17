@@ -4,23 +4,33 @@ import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
 import { Modal } from './Modal'
 import { Reveal } from './Reveal'
-import kitchen from '../assets/mock/room-kitchen.svg'
-import living from '../assets/mock/room-living.svg'
-import bedroom from '../assets/mock/room-bedroom.svg'
-import closet from '../assets/mock/room-closet.svg'
-import bathroom from '../assets/mock/room-bathroom.svg'
-import office from '../assets/mock/room-office.svg'
-import dining from '../assets/mock/room-dining.svg'
-import hall from '../assets/mock/room-hall.svg'
-import joinery from '../assets/mock/detail-joinery.svg'
-import moodboard from '../assets/mock/moodboard.svg'
+import {
+  PORTFOLIO_BANHEIRO_RUSTICO_IMAGE,
+  PORTFOLIO_CLOSET_IMAGE,
+  PORTFOLIO_COZINHA_COMPACTA_IMAGE,
+  PORTFOLIO_COZINHA_ILHA_IMAGE,
+  PORTFOLIO_COZINHA_MINIMALISTA_IMAGE,
+  PORTFOLIO_HOME_OFFICE_IMAGE,
+  PORTFOLIO_HOME_THEATER_RUSTICO_IMAGE,
+  PORTFOLIO_LIVING_PAINEL_TV_IMAGE,
+  PORTFOLIO_QUARTO_ADOLESCENTE_IMAGE,
+  PORTFOLIO_QUARTO_CABECEIRA_IMAGE,
+  PORTFOLIO_QUARTO_INFANTIL_IMAGE,
+  PORTFOLIO_SALA_JANTAR_IMAGE,
+  PORTFOLIO_SHOWROOM_HIDRICA_IMAGE,
+} from '../data/studioMedia'
 
 type PortfolioItem = {
   id: string
   title: string
   subtitle: string
   image: string
+  imageAlt?: string
   details: string[]
+}
+
+function portfolioImageAlt(it: PortfolioItem) {
+  return it.imageAlt ?? `Referência visual: ${it.title}`
 }
 
 const portfolioCardMotion =
@@ -30,74 +40,121 @@ export function PortfolioSection() {
   const items = useMemo<PortfolioItem[]>(
     () => [
       {
-        id: 'cozinha',
+        id: 'cozinha-minimalista',
         title: 'Cozinha minimalista',
         subtitle: 'Apartamento novo • MDF + acabamentos clean',
-        image: kitchen,
-        details: ['Portas lisas', 'Aproveitamento vertical', 'Iluminação planejada'],
+        image: PORTFOLIO_COZINHA_MINIMALISTA_IMAGE,
+        imageAlt:
+          'Cozinha linear clara com armários baixos, bancada clara, cooktop, exaustor em inox e iluminação embutida no teto.',
+        details: ['Portas lisas', 'Aproveitamento vertical', 'Iluminação embutida'],
+      },
+      {
+        id: 'cozinha-ilha',
+        title: 'Cozinha com ilha',
+        subtitle: 'Ilha gourmet • arandelas esfera e bancada em granito',
+        image: PORTFOLIO_COZINHA_ILHA_IMAGE,
+        imageAlt:
+          'Cozinha com ilha, cooktop e cuba embutida, bancada em granito bege, arandelas circulares na parede e ponto de iluminação pendente.',
+        details: ['Ilha para cocção e convívio', 'Arandelas decorativas', 'Bancada em granito'],
+      },
+      {
+        id: 'cozinha-compacta',
+        title: 'Cozinha compacta',
+        subtitle: 'Eletros embutidos • ritmo clean em poucos metros',
+        image: PORTFOLIO_COZINHA_COMPACTA_IMAGE,
+        imageAlt:
+          'Cozinha compacta com armários superiores brancos, gabinetes inferiores em azul fosco, torre com forno e micro-ondas embutidos e backsplash em pastilhas claras.',
+        details: ['Torre com forno + micro-ondas', 'Gaveteiros sob medida', 'Backsplash clean'],
+      },
+      {
+        id: 'sala-jantar',
+        title: 'Sala de jantar',
+        subtitle: 'Integrada com o living • iluminação decorativa',
+        image: PORTFOLIO_SALA_JANTAR_IMAGE,
+        imageAlt:
+          'Sala de jantar integrada ao living, mesa oval em madeira com base metálica, cadeiras estofadas claras e pendentes circulares dourados com LED.',
+        details: ['Mesa oval em madeira', 'Pendentes circulares em LED', 'Integração com o living'],
+      },
+      {
+        id: 'living-painel-tv',
+        title: 'Painel & home (moderno)',
+        subtitle: 'Painel com ripado lateral, mármore e LED embutida',
+        image: PORTFOLIO_LIVING_PAINEL_TV_IMAGE,
+        imageAlt:
+          'Painel de TV em tons claros com ripado lateral, placa em mármore, iluminação em LED por trás do painel, rack suspenso e tapete tipo couro.',
+        details: ['Painel iluminado em LED', 'Ripado em madeira clara', 'Rack suspenso'],
+      },
+      {
+        id: 'home-theater-rustico',
+        title: 'Painel de TV com Estilo Industrial',
+        subtitle: 'Tijolo, madeira e iluminação quente — ambiente country',
+        image: PORTFOLIO_HOME_THEATER_RUSTICO_IMAGE,
+        imageAlt:
+          'Sala de TV com parede em tijolos rústicos, rack suspenso em madeira, lustre em roda de carroça com lâmpadas filamento e prateleiras em metal preto.',
+        details: ['Parede em tijolos', 'Rack em madeira escura', 'Lustre em roda de carroça'],
+      },
+      {
+        id: 'quarto-cabeceira',
+        title: 'Quarto com cabeceira',
+        subtitle: 'Cabeceira estofada • painel ripado e luz quente',
+        image: PORTFOLIO_QUARTO_CABECEIRA_IMAGE,
+        imageAlt:
+          'Quarto com cabeceira estofada em cinza em painéis, parede superior em ripado de madeira clara, arandelas verticais e criado-mudo baixo.',
+        details: ['Cabeceira integrada ao painel', 'Iluminação de parede', 'Criado-mudo sob medida'],
+      },
+      {
+        id: 'quarto-infantil',
+        title: 'Quarto infantil temático',
+        subtitle: 'Beliche no estilo “celeiro” para quarto tema fazenda',
+        image: PORTFOLIO_QUARTO_INFANTIL_IMAGE,
+        imageAlt:
+          'Quarto infantil com beliche em forma de casa/celeiro, papel de parede xadrez azul, almofadas decorativas tema faroeste e roupa de cama azul-marinho.',
+        details: ['Beliche temático', 'Guarda-corpo em madeira', 'Decor personalizado'],
+      },
+      {
+        id: 'quarto-adolescente',
+        title: 'Quarto adolescente',
+        subtitle: 'Cabeceira ripada • penteadeira integrada com LED',
+        image: PORTFOLIO_QUARTO_ADOLESCENTE_IMAGE,
+        imageAlt:
+          'Quarto em tons rosa claro com painel ripado bege, cabeceira estofada, penteadeira com espelho iluminado e nichos com LED sobre a bancada.',
+        details: ['Penteadeira com espelho LED', 'Nichos iluminados', 'Paleta suave e acolhedora'],
       },
       {
         id: 'closet',
         title: 'Closet sob medida',
-        subtitle: 'Funcionalidade • organização diária',
-        image: closet,
-        details: ['Divisões inteligentes', 'Acabamento premium', 'Ferragens de qualidade'],
+        subtitle: 'Portas de vidro • divisões abertas e puffs integrados',
+        image: PORTFOLIO_CLOSET_IMAGE,
+        imageAlt:
+          'Closet estreito com portas de vidro nas duas laterais, interior iluminado, puffs de palhinha no centro, penteadeira com cadeira estofada e passagem central.',
+        details: ['Portas em vidro com perfil', 'Interior iluminado', 'Penteadeira integrada'],
       },
       {
-        id: 'sala',
-        title: 'Sala integrada',
-        subtitle: 'Painel + rack • visual leve e elegante',
-        image: living,
-        details: ['Painel ripado (mock)', 'Nichos e passagem de cabos', 'Proporções'],
+        id: 'home-office',
+        title: 'Escritório com Nichos Iluminados',
+        subtitle: 'Estante com nichos em LED e bancada sob medida',
+        image: PORTFOLIO_HOME_OFFICE_IMAGE,
+        imageAlt:
+          'Escritório com Nichos Iluminados em tons cinza com estante de nichos assimétricos e iluminação em LED, portas lisas e mesa com tampo em madeira clara.',
+        details: ['Nichos com LED', 'Portas lisas', 'Bancada em madeira clara'],
       },
       {
-        id: 'banheiro',
-        title: 'Banheiro compacto',
-        subtitle: 'Organização • fácil manutenção',
-        image: bathroom,
-        details: ['Marcenaria resistente', 'Espelho + armário', 'Aproveitamento do vão'],
+        id: 'banheiro-rustico',
+        title: 'Banheiro rústico',
+        subtitle: 'Madeira, pedra natural e metais quentes',
+        image: PORTFOLIO_BANHEIRO_RUSTICO_IMAGE,
+        imageAlt:
+          'Lavabo com painéis em madeira ripada, espelho com moldura em madeira, lavatório em pedra cinza e torneira dourada.',
+        details: ['Marcenaria com ripado vertical', 'Bancada e cuba em pedra', 'Iluminação quente'],
       },
       {
-        id: 'quarto',
-        title: 'Quarto com cabeceira',
-        subtitle: 'Conforto • linhas retas',
-        image: bedroom,
-        details: ['Iluminação indireta (mock)', 'Criados integrados', 'Acabamento suave'],
-      },
-      {
-        id: 'homeoffice',
-        title: 'Home office',
-        subtitle: 'Ergonomia • foco e produtividade',
-        image: office,
-        details: ['Mesa sob medida', 'Armários superiores', 'Gestão de cabos'],
-      },
-      {
-        id: 'jantar',
-        title: 'Sala de jantar',
-        subtitle: 'Mesa + aparador • elegância funcional',
-        image: dining,
-        details: ['Proporções', 'Iluminação', 'Texturas neutras'],
-      },
-      {
-        id: 'hall',
-        title: 'Hall / circulação',
-        subtitle: 'Entrada com marcenaria integrada',
-        image: hall,
-        details: ['Aproveitamento de vãos', 'Espelho + armário', 'Acabamento contínuo'],
-      },
-      {
-        id: 'marcenaria',
-        title: 'Detalhes de marcenaria',
-        subtitle: 'Emendas, fitas e ritmo visual',
-        image: joinery,
-        details: ['Padronização de frentes', 'Caimento de luz', 'Detalhes premium'],
-      },
-      {
-        id: 'mood',
-        title: 'Moodboard do projeto',
-        subtitle: 'Materiais e referências',
-        image: moodboard,
-        details: ['Cinza + branco', 'Texturas', 'Hierarquia visual'],
+        id: 'showroom-hidrica',
+        title: 'Showroom comercial — Hídrica',
+        subtitle: 'Ambientes de exposição para marca parceira',
+        image: PORTFOLIO_SHOWROOM_HIDRICA_IMAGE,
+        imageAlt:
+          'Recepção de showroom com pendente em LED curvo, logotipo aplicado na parede, balcão com tampo em mármore e mesa curva para atendimento.',
+        details: ['Projeto comercial completo', 'Mobiliário sob medida', 'Iluminação arquitetural'],
       },
     ],
     [],
@@ -117,11 +174,8 @@ export function PortfolioSection() {
             Um fluxo visual contínuo — do conceito ao detalhe
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-studio-700 sm:text-base">
-            <span className="lg:hidden">Mocks em SVG — troque por fotos reais quando quiser.</span>
-            <span className="hidden lg:inline">
-              Imagens fictícias (SVG) para você enxergar composição, ritmo e hierarquia. Depois é
-              só substituir por fotos reais dos seus projetos.
-            </span>
+            Cozinhas, quartos, living, closets e ambientes comerciais entregues pela StudioA3 —
+            toque num cartão para ver os detalhes do projeto.
           </p>
         </Reveal>
 
@@ -149,40 +203,40 @@ export function PortfolioSection() {
                         : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
                 }}
               >
-              <div
-                className={
-                  idx === 0
-                    ? 'relative aspect-[16/11] w-full bg-studio-900'
-                    : 'relative aspect-[4/3] w-full bg-studio-900'
-                }
-              >
-                <img
-                  src={it.image}
-                  alt={`Mock de ambiente: ${it.title}`}
-                  className="img-hover-zoom h-full w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <p
-                    className={
-                      idx === 0
-                        ? 'text-lg font-semibold text-white'
-                        : 'text-sm font-semibold text-white'
-                    }
-                  >
-                    {it.title}
-                  </p>
-                  <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
-                  {idx === 0 ? (
-                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      Toque para ampliar
-                    </div>
-                  ) : null}
+                <div
+                  className={
+                    idx === 0
+                      ? 'relative aspect-[16/11] w-full bg-studio-900'
+                      : 'relative aspect-[4/3] w-full bg-studio-900'
+                  }
+                >
+                  <img
+                    src={it.image}
+                    alt={portfolioImageAlt(it)}
+                    className="img-hover-zoom h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                    <p
+                      className={
+                        idx === 0
+                          ? 'text-lg font-semibold text-white'
+                          : 'text-sm font-semibold text-white'
+                      }
+                    >
+                      {it.title}
+                    </p>
+                    <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
+                    {idx === 0 ? (
+                      <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                        Toque para ampliar
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-            </button>
+              </button>
             </Reveal>
           ))}
         </MobileSnapCarousel>
@@ -206,7 +260,7 @@ export function PortfolioSection() {
                 <div className="relative aspect-[16/11] w-full bg-studio-900">
                   <img
                     src={items[0]!.image}
-                    alt={`Mock de ambiente: ${items[0]!.title}`}
+                    alt={portfolioImageAlt(items[0]!)}
                     className="img-hover-zoom h-full w-full object-cover"
                     loading="lazy"
                   />
@@ -227,8 +281,8 @@ export function PortfolioSection() {
               <div className="lg:pt-10">
                 <p className="text-sm font-semibold text-studio-950">Seleção StudioA3</p>
                 <p className="mt-3 text-base leading-relaxed text-studio-700">
-                  Um recorte “editorial” do portfólio: ambientes neutros, volumetria limpa e
-                  composição que guia o olhar — como um showroom em scroll.
+                  Um recorte editorial do portfólio: cozinhas, dormitórios, living e projetos
+                  comerciais — o cuidado da marcenaria planejada em cada ambiente.
                 </p>
                 <div className="mt-6 rounded-3xl bg-studio-200/25 p-6 shadow-soft ring-1 ring-studio-300/35 backdrop-blur">
                   <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
@@ -269,7 +323,7 @@ export function PortfolioSection() {
                   <div className="relative aspect-[4/3] w-full bg-studio-900">
                     <img
                       src={it.image}
-                      alt={`Mock de ambiente: ${it.title}`}
+                      alt={portfolioImageAlt(it)}
                       className="img-hover-zoom h-full w-full object-cover"
                       loading="lazy"
                     />
@@ -296,15 +350,15 @@ export function PortfolioSection() {
             <div className="overflow-hidden rounded-2xl shadow-ring">
               <img
                 src={selected.image}
-                alt={`Mock de ambiente: ${selected.title}`}
+                alt={portfolioImageAlt(selected)}
                 className="aspect-[16/11] w-full object-cover"
               />
             </div>
             <div>
               <p className="text-sm font-medium text-studio-900">{selected.subtitle}</p>
               <p className="mt-3 text-sm leading-relaxed text-studio-700">
-                Espaço para descrever o projeto, materiais e decisões de design. Perfeito
-                para aumentar confiança e gerar conversão.
+                {selected.imageAlt ??
+                  'Ambiente planejado pela StudioA3 com marcenaria sob medida, acabamento premium e atenção total ao detalhe.'}
               </p>
               <ul className="mt-4 space-y-2 text-sm text-studio-700">
                 {selected.details.map((d) => (
@@ -321,4 +375,3 @@ export function PortfolioSection() {
     </MotionSection>
   )
 }
-
