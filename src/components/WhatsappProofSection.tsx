@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { AutoCarousel } from './AutoCarousel'
 import { Container } from './Container'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
@@ -81,41 +81,6 @@ function Bubble({ side, text }: { side: 'them' | 'me'; text: string }) {
 }
 
 export function WhatsappProofSection() {
-  const scrollerRef = useRef<HTMLDivElement | null>(null)
-  const [canLeft, setCanLeft] = useState(false)
-  const [canRight, setCanRight] = useState(false)
-
-  function updateScrollState() {
-    const el = scrollerRef.current
-    if (!el) return
-    const max = el.scrollWidth - el.clientWidth
-    const x = el.scrollLeft
-    setCanLeft(x > 8)
-    setCanRight(x < max - 8)
-  }
-
-  useEffect(() => {
-    const el = scrollerRef.current
-    if (!el) return
-
-    updateScrollState()
-    el.addEventListener('scroll', updateScrollState, { passive: true })
-    window.addEventListener('resize', updateScrollState)
-
-    return () => {
-      el.removeEventListener('scroll', updateScrollState)
-      window.removeEventListener('resize', updateScrollState)
-    }
-  }, [])
-
-  function scrollByDir(dir: -1 | 1) {
-    const el = scrollerRef.current
-    if (!el) return
-    const step = Math.max(280, Math.floor(el.clientWidth * 0.75))
-    el.scrollBy({ left: dir * step, behavior: 'smooth' })
-    window.setTimeout(updateScrollState, 250)
-  }
-
   return (
     <MotionSection
       id="provas"
@@ -141,58 +106,36 @@ export function WhatsappProofSection() {
           </p>
         </Reveal>
 
-        <div className="relative mt-10">
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 block w-14 bg-gradient-to-l from-studio-100/70 to-transparent lg:hidden" />
+        {/* Mobile / tablet: carrossel com crossfade automático. */}
+        <AutoCarousel
+          maxBreakpoint="lg"
+          ariaLabel="Conversas ilustrativas StudioA3"
+          className="mt-10"
+        >
+          {chats.map((c) => (
+            <div key={c.title} className="flex w-full flex-col items-center">
+              <p className="mb-3 text-center text-xs font-semibold tracking-[0.22em] text-studio-600">
+                {c.title.toUpperCase()}
+              </p>
+              <PhoneFrame>
+                <div className="space-y-3 rounded-2xl bg-[#ECE5DD] p-3">
+                  {c.lines.map((l) => (
+                    <Bubble key={l.text} side={l.side} text={l.text} />
+                  ))}
+                </div>
+              </PhoneFrame>
+            </div>
+          ))}
+        </AutoCarousel>
 
-          <div className="absolute right-0 top-0 z-30 flex gap-2 lg:hidden">
-            <button
-              type="button"
-              onClick={() => scrollByDir(-1)}
-              disabled={!canLeft}
-              className={[
-                'inline-flex h-11 w-11 items-center justify-center rounded-2xl text-lg font-semibold leading-none',
-                'bg-studio-900 text-white shadow-soft ring-1 ring-studio-950/20',
-                'hover:bg-studio-800 disabled:cursor-not-allowed disabled:opacity-40',
-              ].join(' ')}
-              aria-label="Ver conversas anteriores"
+        {/* Desktop: grid 3 colunas. */}
+        <div className="mt-10 hidden gap-6 lg:grid lg:grid-cols-3">
+          {chats.map((c, idx) => (
+            <Reveal
+              key={c.title}
+              delay={idx * 0.07}
+              className="flex w-full min-w-0 flex-col items-center"
             >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByDir(1)}
-              disabled={!canRight}
-              className={[
-                'inline-flex h-11 w-11 items-center justify-center rounded-2xl text-lg font-semibold leading-none',
-                'bg-studio-900 text-white shadow-soft ring-1 ring-studio-950/20',
-                'hover:bg-studio-800 disabled:cursor-not-allowed disabled:opacity-40',
-              ].join(' ')}
-              aria-label="Ver próximas conversas"
-            >
-              ›
-            </button>
-          </div>
-
-          <div
-            ref={scrollerRef}
-            className={[
-              'flex gap-4 pb-2 sm:gap-6',
-              'max-lg:snap-x max-lg:snap-proximity max-lg:overflow-x-auto max-lg:scroll-smooth max-lg:[touch-action:pan-x_pan-y]',
-              'max-lg:[-ms-overflow-style:none] max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden',
-              'lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pb-0',
-            ].join(' ')}
-            tabIndex={0}
-            aria-label="Carrossel de conversas (mock)"
-          >
-            {chats.map((c, idx) => (
-              <Reveal
-                key={c.title}
-                delay={idx * 0.07}
-                className={[
-                  'flex w-full min-w-0 flex-col items-center max-lg:max-w-[min(20rem,calc(100%-1rem))] max-lg:shrink-0 max-lg:snap-start',
-                  'lg:snap-normal',
-                ].join(' ')}
-              >
               <div className="w-full transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_16px_32px_-18px_rgba(37,34,32,0.15)]">
                 <p className="mb-3 text-center text-xs font-semibold tracking-[0.22em] text-studio-600">
                   {c.title.toUpperCase()}
@@ -205,13 +148,8 @@ export function WhatsappProofSection() {
                   </div>
                 </PhoneFrame>
               </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <p className="mt-3 text-center text-xs text-studio-600 sm:hidden">
-            Dica: deslize horizontalmente para ver o próximo mock.
-          </p>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </MotionSection>

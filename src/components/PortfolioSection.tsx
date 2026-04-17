@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
+import { AutoCarousel } from './AutoCarousel'
 import { Container } from './Container'
-import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
 import { Modal } from './Modal'
 import { Reveal } from './Reveal'
@@ -179,71 +179,41 @@ export function PortfolioSection() {
           </p>
         </Reveal>
 
-        <MobileSnapCarousel
+        <AutoCarousel
           maxBreakpoint="lg"
-          aria-label="Projetos do portfólio StudioA3"
+          ariaLabel="Projetos do portfólio StudioA3"
           className="mt-8 sm:mt-12"
         >
-          {items.map((it, idx) => (
-            <Reveal key={it.id} delay={idx * 0.05} className="shrink-0 snap-start">
-              <button
-                type="button"
-                onClick={() => setSelected(it)}
-                className={[
-                  'group relative w-[min(18.75rem,calc(100%-1rem))] overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
-                  portfolioCardMotion,
-                ].join(' ')}
-                style={{
-                  borderRadius: idx === 0 ? '34px' : '28px',
-                  clipPath:
-                    idx === 0
-                      ? 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)'
-                      : idx % 2 === 0
-                        ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
-                        : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
-                }}
-              >
-                <div
-                  className={
-                    idx === 0
-                      ? 'relative aspect-[16/11] w-full bg-studio-900'
-                      : 'relative aspect-[4/3] w-full bg-studio-900'
-                  }
-                >
-                  <img
-                    src={it.image}
-                    alt={portfolioImageAlt(it)}
-                    className="img-hover-zoom h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                    <p
-                      className={
-                        idx === 0
-                          ? 'text-lg font-semibold text-white'
-                          : 'text-sm font-semibold text-white'
-                      }
-                    >
-                      {it.title}
-                    </p>
-                    <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
-                    {idx === 0 ? (
-                      <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
-                        <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                        Toque para ampliar
-                      </div>
-                    ) : null}
+          {items.map((it) => (
+            <button
+              key={it.id}
+              type="button"
+              onClick={() => setSelected(it)}
+              className={[
+                'group relative block w-full overflow-hidden rounded-[28px] text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
+                portfolioCardMotion,
+              ].join(' ')}
+            >
+              <div className="relative aspect-[4/3] w-full bg-studio-900">
+                <img
+                  src={it.image}
+                  alt={portfolioImageAlt(it)}
+                  className="img-hover-zoom h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  <p className="text-base font-semibold text-white sm:text-lg">{it.title}</p>
+                  <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                    Toque para ampliar
                   </div>
                 </div>
-              </button>
-            </Reveal>
+              </div>
+            </button>
           ))}
-        </MobileSnapCarousel>
-
-        <p className="mt-2 text-center text-xs text-studio-600 lg:hidden">
-          Deslize para explorar todos os ambientes
-        </p>
+        </AutoCarousel>
 
         <div className="mt-12 hidden lg:block">
           <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">

@@ -1,7 +1,6 @@
 import { useReducedMotion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { AutoCarousel } from './AutoCarousel'
 import { Container } from './Container'
-import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 
@@ -125,31 +124,6 @@ function PillarCard({
 
 export function PillarsSection() {
   const reduce = Boolean(useReducedMotion())
-  const scrollerRef = useRef<HTMLDivElement | null>(null)
-  const [active, setActive] = useState(0)
-
-  useEffect(() => {
-    const root = scrollerRef.current
-    if (!root) return
-
-    const slides = root.querySelectorAll<HTMLElement>('[data-pillar-slide]')
-    if (slides.length === 0) return
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && e.intersectionRatio >= 0.55) {
-            const i = Number(e.target.getAttribute('data-pillar-idx'))
-            if (!Number.isNaN(i)) setActive(i)
-          }
-        }
-      },
-      { root, threshold: [0.45, 0.55, 0.65] },
-    )
-
-    slides.forEach((el) => obs.observe(el))
-    return () => obs.disconnect()
-  }, [])
 
   return (
     <MotionSection id="pilares" className="relative z-10 overflow-x-hidden py-14 sm:py-20 md:py-24">
@@ -172,42 +146,15 @@ export function PillarsSection() {
           </p>
         </Reveal>
 
-        <MobileSnapCarousel
-          ref={scrollerRef}
+        <AutoCarousel
           maxBreakpoint="md"
-          aria-label="Pilares do atendimento StudioA3"
+          ariaLabel="Pilares do atendimento StudioA3"
           className="mt-8 sm:mt-12"
         >
           {pillars.map((p, idx) => (
-            <div
-              key={p.title}
-              data-pillar-slide
-              data-pillar-idx={idx}
-              className="w-[min(20rem,calc(100vw-3rem))] shrink-0 snap-start sm:w-[min(22rem,calc(100vw-4rem))]"
-            >
-              <PillarCard p={p} idx={idx} reduce={reduce} layout="carousel" />
-            </div>
+            <PillarCard key={p.title} p={p} idx={idx} reduce={reduce} layout="carousel" />
           ))}
-        </MobileSnapCarousel>
-
-        <div
-          className="mt-2 flex justify-center gap-2 md:hidden"
-          role="tablist"
-          aria-label="Indicadores do carrossel"
-        >
-          {pillars.map((p, i) => (
-            <span
-              key={p.title}
-              role="presentation"
-              className={[
-                'h-2 w-2 rounded-full transition-colors duration-200',
-                i === active ? 'bg-studio-900' : 'bg-studio-300',
-              ].join(' ')}
-            />
-          ))}
-        </div>
-
-        <p className="mt-2 text-center text-xs text-studio-600 md:hidden">Deslize para o lado para ver os pilares</p>
+        </AutoCarousel>
 
         <div className="mt-12 hidden gap-5 md:grid md:grid-cols-3">
           {pillars.map((p, idx) => (

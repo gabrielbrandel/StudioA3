@@ -1,7 +1,6 @@
 import { useReducedMotion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { AutoCarousel } from './AutoCarousel'
 import { Container } from './Container'
-import { MobileSnapCarousel } from './MobileSnapCarousel'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
 import { StudioLogo } from './StudioLogo'
@@ -88,30 +87,6 @@ function TeamMemberCard({
 
 export function AboutSection() {
   const reduce = Boolean(useReducedMotion())
-  const teamScrollRef = useRef<HTMLDivElement | null>(null)
-  const [teamActive, setTeamActive] = useState(0)
-
-  useEffect(() => {
-    const root = teamScrollRef.current
-    if (!root) return
-    const slides = root.querySelectorAll<HTMLElement>('[data-team-slide]')
-    if (slides.length === 0) return
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && e.intersectionRatio >= 0.55) {
-            const i = Number(e.target.getAttribute('data-team-idx'))
-            if (!Number.isNaN(i)) setTeamActive(i)
-          }
-        }
-      },
-      { root, threshold: [0.45, 0.55, 0.65] },
-    )
-
-    slides.forEach((el) => obs.observe(el))
-    return () => obs.disconnect()
-  }, [])
 
   return (
     <MotionSection
@@ -172,45 +147,15 @@ export function AboutSection() {
               </div>
             </Reveal>
 
-            <MobileSnapCarousel
-              ref={teamScrollRef}
+            <AutoCarousel
               maxBreakpoint="md"
-              aria-label="Equipe StudioA3"
+              ariaLabel="Equipe StudioA3"
               className="mt-8 lg:mt-10"
             >
-              {team.map((m, idx) => (
-                <Reveal
-                  key={m.name}
-                  delay={idx * 0.07}
-                  className="w-[82%] max-w-[19rem] shrink-0 snap-start"
-                >
-                  <div data-team-slide data-team-idx={idx}>
-                    <TeamMemberCard m={m} reduce={reduce} layout="carousel" />
-                  </div>
-                </Reveal>
+              {team.map((m) => (
+                <TeamMemberCard key={m.name} m={m} reduce={reduce} layout="carousel" />
               ))}
-            </MobileSnapCarousel>
-
-            <div
-              className="mt-2 flex justify-center gap-2 md:hidden"
-              role="tablist"
-              aria-label="Indicadores do carrossel da equipe"
-            >
-              {team.map((m, i) => (
-                <span
-                  key={m.name}
-                  role="presentation"
-                  className={[
-                    'h-2 w-2 rounded-full transition-colors duration-200',
-                    i === teamActive ? 'bg-studio-900' : 'bg-studio-300',
-                  ].join(' ')}
-                />
-              ))}
-            </div>
-
-            <p className="mt-2 text-center text-xs text-studio-600 md:hidden">
-              Deslize para conhecer cada profissional
-            </p>
+            </AutoCarousel>
 
             <div className="mt-10 hidden space-y-4 md:block">
               {team.map((m, idx) => (
