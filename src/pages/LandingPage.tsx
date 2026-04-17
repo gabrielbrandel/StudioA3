@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer'
 import { HeroSection } from '../components/HeroSection'
 import { KeywordsMarquee } from '../components/KeywordsMarquee'
 import { LeadFormSection } from '../components/LeadFormSection'
-import { Navbar } from '../components/Navbar'
+import { Sidebar } from '../components/Sidebar'
 import { PillarsSection } from '../components/PillarsSection'
 import { PortfolioSection } from '../components/PortfolioSection'
 import { ProcessSection } from '../components/ProcessSection'
@@ -24,10 +24,10 @@ function LightSectionCard({ children }: { children: ReactNode }) {
 
 export function LandingPage() {
   return (
-    <div className="relative min-h-screen min-w-0 overflow-x-clip bg-studio-950 text-studio-100">
+    <div className="relative min-h-screen min-w-0 overflow-x-clip bg-studio-950 text-studio-100 transition-[padding] duration-300 ease-out lg:pl-[var(--sidebar-w,18rem)]">
       <StudioBackdrop mood="dark" />
-      <Navbar />
-      <main className="relative z-0 mx-auto min-w-0 max-w-6xl space-y-5 px-4 pb-16 pt-4 sm:space-y-6 sm:px-6 sm:pt-6 lg:px-8">
+      <Sidebar />
+      <main className="relative z-0 mx-auto min-w-0 max-w-6xl space-y-5 px-4 pb-16 pt-20 sm:space-y-6 sm:px-6 sm:pt-20 lg:px-8 lg:pt-6">
         <HeroSection />
 
         <div className="relative -mx-4 w-[calc(100%+2rem)] sm:-mx-6 sm:w-[calc(100%+3rem)] lg:-mx-8 lg:w-[calc(100%+4rem)]">

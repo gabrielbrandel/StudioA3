@@ -13,7 +13,7 @@ export function HeroSection() {
   return (
     <section
       id="inicio"
-      className="relative min-w-0 scroll-mt-28 overflow-x-clip pb-4 pt-24 sm:scroll-mt-32 sm:pb-6 sm:pt-28"
+      className="relative min-w-0 scroll-mt-24 overflow-x-clip pb-4 sm:scroll-mt-28 sm:pb-6"
     >
       <div className="overflow-hidden rounded-[1.65rem] bg-studio-50 text-studio-900 shadow-[0_28px_90px_-40px_rgba(0,0,0,0.55)] ring-1 ring-studio-200/50 max-lg:p-0 sm:rounded-[2rem] lg:p-7 xl:p-10">
         <div className="grid max-lg:grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:gap-10">
@@ -35,13 +35,28 @@ export function HeroSection() {
                 decoding="async"
                 onError={() => setHeroSrc(heroRoom)}
               />
+
+              {/* Faixa branca translúcida — do topo da imagem até o fim da logo. */}
               <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/18 to-black/5 lg:from-studio-950/40 lg:via-studio-950/10 lg:to-transparent"
+                className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-center bg-white/45 px-4 py-4 backdrop-blur-[2px] sm:py-5 lg:py-6"
+                aria-hidden
+              >
+                <img
+                  src="/brand/logo-framed-white.png"
+                  alt=""
+                  aria-hidden
+                  className="w-[min(78%,21rem)] max-w-full opacity-[0.85] drop-shadow-[0_6px_20px_rgba(0,0,0,0.18)] sm:w-[min(70%,24rem)] lg:w-[min(68%,26rem)]"
+                />
+              </div>
+
+              {/* Gradient subtil na base para legibilidade da legenda DESTAQUE. */}
+              <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-studio-950/55 via-transparent to-transparent"
                 aria-hidden
               />
 
               <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 lg:p-6 lg:pb-6">
-                <div className="rounded-2xl border border-white/15 bg-studio-950/25 p-3.5 shadow-lg backdrop-blur-xl sm:p-4 lg:max-w-xl lg:bg-studio-950/20">
+                <div className="rounded-2xl border border-white/15 bg-studio-950/35 p-3.5 shadow-lg backdrop-blur-xl sm:p-4 lg:max-w-xl lg:bg-studio-950/30">
                   <p className="text-[10px] font-semibold tracking-[0.22em] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.65)] sm:text-xs">
                     DESTAQUE
                   </p>

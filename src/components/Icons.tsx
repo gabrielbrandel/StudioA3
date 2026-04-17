@@ -149,6 +149,20 @@ export function IconInstagram(props: IconProps) {
   )
 }
 
+export function IconChevronLeft(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="M15 6l-6 6 6 6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function IconMenu(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
@@ -171,6 +185,78 @@ export function IconClose(props: IconProps) {
         strokeWidth="1.8"
         strokeLinecap="round"
       />
+    </svg>
+  )
+}
+
+export function IconHome(props: IconProps) {
+  const { title = 'Início', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <path d="M3 11.5 12 4l9 7.5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M5 10v10h14V10" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function IconGrid(props: IconProps) {
+  const { title = 'Portfólio', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+      <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  )
+}
+
+export function IconListCheck(props: IconProps) {
+  const { title = 'Processo', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <path d="M9 6h12M9 12h12M9 18h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M3 5.5l1.6 1.6L7 5M3 11.5l1.6 1.6L7 11M3 17.5l1.6 1.6L7 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function IconStar(props: IconProps) {
+  const { title = 'Provas', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <path
+        d="m12 3 2.6 5.7L21 9.6l-4.7 4.1 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.6l6.4-.9L12 3Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export function IconUser(props: IconProps) {
+  const { title = 'Sobre', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function IconDocument(props: IconProps) {
+  const { title = 'Orçamento', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <path
+        d="M6 3h8l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path d="M14 3v4h4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M8 12h8M8 16h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   )
 }
