@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Container } from './Container'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
@@ -18,8 +18,31 @@ import {
   PORTFOLIO_SHOWROOM_HIDRICA_IMAGE,
 } from '../data/studioMedia'
 
+type PortfolioCategory =
+  | 'cozinha'
+  | 'salas'
+  | 'quartos'
+  | 'closet'
+  | 'banheiro'
+  | 'escritorio'
+  | 'comercial'
+
+type PortfolioTabId = 'todos' | PortfolioCategory
+
+const PORTFOLIO_TABS: { id: PortfolioTabId; label: string }[] = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'cozinha', label: 'Cozinha' },
+  { id: 'salas', label: 'Salas' },
+  { id: 'quartos', label: 'Quartos' },
+  { id: 'closet', label: 'Closet' },
+  { id: 'banheiro', label: 'Banheiro' },
+  { id: 'escritorio', label: 'Escritório' },
+  { id: 'comercial', label: 'Comercial' },
+]
+
 type PortfolioItem = {
   id: string
+  category: PortfolioCategory
   title: string
   subtitle: string
   image: string
@@ -35,10 +58,13 @@ const cardBase =
   'group relative block w-full overflow-hidden bg-neutral-900 text-left'
 
 export function PortfolioSection() {
+  const [tab, setTab] = useState<PortfolioTabId>('todos')
+
   const items = useMemo<PortfolioItem[]>(
     () => [
       {
         id: 'cozinha-minimalista',
+        category: 'cozinha',
         title: 'Cozinha minimalista',
         subtitle: 'Apartamento novo • MDF + acabamentos clean',
         image: PORTFOLIO_COZINHA_MINIMALISTA_IMAGE,
@@ -48,6 +74,7 @@ export function PortfolioSection() {
       },
       {
         id: 'cozinha-ilha',
+        category: 'cozinha',
         title: 'Cozinha com ilha',
         subtitle: 'Ilha gourmet • arandelas esfera e bancada em granito',
         image: PORTFOLIO_COZINHA_ILHA_IMAGE,
@@ -57,6 +84,7 @@ export function PortfolioSection() {
       },
       {
         id: 'cozinha-compacta',
+        category: 'cozinha',
         title: 'Cozinha compacta',
         subtitle: 'Eletros embutidos • ritmo clean em poucos metros',
         image: PORTFOLIO_COZINHA_COMPACTA_IMAGE,
@@ -66,6 +94,7 @@ export function PortfolioSection() {
       },
       {
         id: 'sala-jantar',
+        category: 'salas',
         title: 'Sala de jantar',
         subtitle: 'Integrada com o living • iluminação decorativa',
         image: PORTFOLIO_SALA_JANTAR_IMAGE,
@@ -75,6 +104,7 @@ export function PortfolioSection() {
       },
       {
         id: 'living-painel-tv',
+        category: 'salas',
         title: 'Painel & home (moderno)',
         subtitle: 'Painel com ripado lateral, mármore e LED embutida',
         image: PORTFOLIO_LIVING_PAINEL_TV_IMAGE,
@@ -84,6 +114,7 @@ export function PortfolioSection() {
       },
       {
         id: 'home-theater-rustico',
+        category: 'salas',
         title: 'Painel de TV com Estilo Industrial',
         subtitle: 'Tijolo, madeira e iluminação quente — ambiente country',
         image: PORTFOLIO_HOME_THEATER_RUSTICO_IMAGE,
@@ -93,6 +124,7 @@ export function PortfolioSection() {
       },
       {
         id: 'quarto-cabeceira',
+        category: 'quartos',
         title: 'Quarto com cabeceira',
         subtitle: 'Cabeceira estofada • painel ripado e luz quente',
         image: PORTFOLIO_QUARTO_CABECEIRA_IMAGE,
@@ -102,6 +134,7 @@ export function PortfolioSection() {
       },
       {
         id: 'quarto-infantil',
+        category: 'quartos',
         title: 'Quarto infantil temático',
         subtitle: 'Beliche no estilo “celeiro” para quarto tema fazenda',
         image: PORTFOLIO_QUARTO_INFANTIL_IMAGE,
@@ -111,6 +144,7 @@ export function PortfolioSection() {
       },
       {
         id: 'quarto-adolescente',
+        category: 'quartos',
         title: 'Quarto adolescente',
         subtitle: 'Cabeceira ripada • penteadeira integrada com LED',
         image: PORTFOLIO_QUARTO_ADOLESCENTE_IMAGE,
@@ -120,6 +154,7 @@ export function PortfolioSection() {
       },
       {
         id: 'closet',
+        category: 'closet',
         title: 'Closet sob medida',
         subtitle: 'Portas de vidro • divisões abertas e puffs integrados',
         image: PORTFOLIO_CLOSET_IMAGE,
@@ -129,6 +164,7 @@ export function PortfolioSection() {
       },
       {
         id: 'home-office',
+        category: 'escritorio',
         title: 'Escritório com Nichos Iluminados',
         subtitle: 'Estante com nichos em LED e bancada sob medida',
         image: PORTFOLIO_HOME_OFFICE_IMAGE,
@@ -138,6 +174,7 @@ export function PortfolioSection() {
       },
       {
         id: 'banheiro-rustico',
+        category: 'banheiro',
         title: 'Banheiro rústico',
         subtitle: 'Madeira, pedra natural e metais quentes',
         image: PORTFOLIO_BANHEIRO_RUSTICO_IMAGE,
@@ -147,6 +184,7 @@ export function PortfolioSection() {
       },
       {
         id: 'showroom-hidrica',
+        category: 'comercial',
         title: 'Showroom comercial — Hídrica',
         subtitle: 'Ambientes de exposição para marca parceira',
         image: PORTFOLIO_SHOWROOM_HIDRICA_IMAGE,
@@ -157,6 +195,14 @@ export function PortfolioSection() {
     ],
     [],
   )
+
+  const visibleItems = useMemo(
+    () => (tab === 'todos' ? items : items.filter((it) => it.category === tab)),
+    [items, tab],
+  )
+
+  const tabsScrollClass =
+    'flex w-full min-w-0 max-w-full gap-2 overflow-x-auto overscroll-x-contain scroll-smooth pb-1 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory'
 
   return (
     <MotionSection
@@ -179,8 +225,44 @@ export function PortfolioSection() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-5">
-          {items.map((it, idx) => (
+        <Reveal delay={0.06}>
+          <div
+            className="mx-auto mt-10 max-w-4xl"
+            role="tablist"
+            aria-label="Filtrar projetos por ambiente"
+          >
+            <div className={tabsScrollClass}>
+              {PORTFOLIO_TABS.map((t) => {
+                const selected = tab === t.id
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    id={`portfolio-tab-${t.id}`}
+                    onClick={() => setTab(t.id)}
+                    className={[
+                      'shrink-0 snap-start rounded-full px-4 py-2 text-sm font-medium tracking-tight transition-colors',
+                      selected
+                        ? 'bg-white text-studio-950 shadow-sm ring-1 ring-white/40'
+                        : 'bg-white/10 text-white/85 ring-1 ring-white/15 hover:bg-white/15',
+                    ].join(' ')}
+                  >
+                    {t.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </Reveal>
+
+        <div
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-5"
+          role="tabpanel"
+          aria-labelledby={`portfolio-tab-${tab}`}
+        >
+          {visibleItems.map((it, idx) => (
             <Reveal key={it.id} delay={0.04 + (idx % 4) * 0.04}>
               <article
                 className={[cardBase, 'transition-transform duration-200 motion-safe:hover:scale-[1.01]'].join(' ')}
