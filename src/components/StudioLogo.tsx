@@ -10,9 +10,16 @@ type Props = {
   className?: string
   /** Quando true, trata como puramente visual (ex.: dentro de um link com texto visível). */
   decorative?: boolean
+  /** Hero / above-the-fold: carrega cedo e com prioridade para manter nitidez. */
+  priority?: boolean
 }
 
-export function StudioLogo({ variant = 'stacked', className = '', decorative = false }: Props) {
+export function StudioLogo({
+  variant = 'stacked',
+  className = '',
+  decorative = false,
+  priority = false,
+}: Props) {
   const title = 'Studio A3'
 
   return (
@@ -22,6 +29,8 @@ export function StudioLogo({ variant = 'stacked', className = '', decorative = f
       aria-hidden={decorative ? true : undefined}
       className={['object-contain', className].filter(Boolean).join(' ')}
       decoding="async"
+      loading={priority ? 'eager' : undefined}
+      fetchPriority={priority ? 'high' : undefined}
     />
   )
 }

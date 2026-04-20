@@ -1,8 +1,6 @@
-import { useMemo, useState } from 'react'
-import { AutoCarousel } from './AutoCarousel'
+import { useMemo } from 'react'
 import { Container } from './Container'
 import { MotionSection } from './MotionSection'
-import { Modal } from './Modal'
 import { Reveal } from './Reveal'
 import {
   PORTFOLIO_BANHEIRO_RUSTICO_IMAGE,
@@ -33,8 +31,8 @@ function portfolioImageAlt(it: PortfolioItem) {
   return it.imageAlt ?? `Referência visual: ${it.title}`
 }
 
-const portfolioCardMotion =
-  'transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:hover:shadow-[0_18px_36px_-20px_rgba(37,34,32,0.2)] active:scale-[0.99]'
+const cardBase =
+  'group relative block w-full overflow-hidden bg-neutral-900 text-left'
 
 export function PortfolioSection() {
   const items = useMemo<PortfolioItem[]>(
@@ -160,188 +158,52 @@ export function PortfolioSection() {
     [],
   )
 
-  const [selected, setSelected] = useState<PortfolioItem | null>(null)
-
   return (
     <MotionSection
       id="portfolio"
-      className="relative z-10 overflow-x-hidden py-14 sm:py-20 md:py-24"
+      className="relative z-10 scroll-mt-24 overflow-x-hidden bg-black py-16 text-white sm:scroll-mt-28 sm:py-20 md:py-28"
     >
-      <Container>
+      <Container className="max-w-7xl">
         <Reveal>
-          <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">PORTFÓLIO</p>
-          <h2 className="mt-4 font-display text-3xl tracking-tight text-studio-950 sm:text-4xl">
-            Um fluxo visual contínuo — do conceito ao detalhe
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-studio-700 sm:text-base">
-            Cozinhas, quartos, living, closets e ambientes comerciais entregues pela StudioA3 —
-            toque num cartão para ver os detalhes do projeto.
-          </p>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="font-sans text-xs font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-sm">
+              Portfólio
+            </h2>
+            <p className="mt-5 font-display text-3xl tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
+              Projetos selecionados
+            </p>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base">
+              Cozinhas, quartos, living, closets e ambientes comerciais — uma seleção do nosso
+              trabalho.
+            </p>
+          </div>
         </Reveal>
 
-        <AutoCarousel
-          maxBreakpoint="lg"
-          ariaLabel="Projetos do portfólio StudioA3"
-          className="mt-8 sm:mt-12"
-        >
-          {items.map((it) => (
-            <button
-              key={it.id}
-              type="button"
-              onClick={() => setSelected(it)}
-              className={[
-                'group relative block w-full overflow-hidden rounded-[28px] text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
-                portfolioCardMotion,
-              ].join(' ')}
-            >
-              <div className="relative aspect-[4/3] w-full bg-studio-900">
-                <img
-                  src={it.image}
-                  alt={portfolioImageAlt(it)}
-                  className="img-hover-zoom h-full w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <p className="text-base font-semibold text-white sm:text-lg">{it.title}</p>
-                  <p className="mt-1 text-xs text-white/75 sm:mt-2 sm:text-sm">{it.subtitle}</p>
-                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur sm:mt-4">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                    Toque para ampliar
-                  </div>
-                </div>
-              </div>
-            </button>
-          ))}
-        </AutoCarousel>
-
-        <div className="mt-12 hidden lg:block">
-          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
-            <Reveal className="lg:col-span-7">
-              <button
-                type="button"
-                onClick={() => setSelected(items[0]!)}
-                className={[
-                  'group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
-                  portfolioCardMotion,
-                ].join(' ')}
-                style={{ borderRadius: '34px', clipPath: 'polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%)' }}
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-5">
+          {items.map((it, idx) => (
+            <Reveal key={it.id} delay={0.04 + (idx % 4) * 0.04}>
+              <article
+                className={[cardBase, 'transition-transform duration-200 motion-safe:hover:scale-[1.01]'].join(' ')}
               >
-                <div className="relative aspect-[16/11] w-full bg-studio-900">
+                <div className="relative aspect-[3/4] w-full sm:aspect-[3/4]">
                   <img
-                    src={items[0]!.image}
-                    alt={portfolioImageAlt(items[0]!)}
-                    className="img-hover-zoom h-full w-full object-cover"
+                    src={it.image}
+                    alt={portfolioImageAlt(it)}
+                    className="img-hover-zoom absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <p className="text-lg font-semibold text-white">{items[0]!.title}</p>
-                    <p className="mt-2 text-sm text-white/75">{items[0]!.subtitle}</p>
-                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      Clique para ampliar
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-end p-5 sm:p-6">
+                    <p className="min-w-0 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white sm:text-base">
+                      {it.title}
+                    </p>
                   </div>
                 </div>
-              </button>
+              </article>
             </Reveal>
-
-            <Reveal delay={0.06} className="lg:col-span-5">
-              <div className="lg:pt-10">
-                <p className="text-sm font-semibold text-studio-950">Seleção StudioA3</p>
-                <p className="mt-3 text-base leading-relaxed text-studio-700">
-                  Um recorte editorial do portfólio: cozinhas, dormitórios, living e projetos
-                  comerciais — o cuidado da marcenaria planejada em cada ambiente.
-                </p>
-                <div className="mt-6 rounded-3xl bg-studio-200/25 p-6 shadow-soft ring-1 ring-studio-300/35 backdrop-blur">
-                  <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
-                    DESTAQUE
-                  </p>
-                  <p className="mt-3 text-base font-semibold text-studio-950">{items[1]!.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-studio-700">{items[1]!.subtitle}</p>
-                  <button
-                    type="button"
-                    onClick={() => setSelected(items[1]!)}
-                    className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-studio-950 px-4 py-3 text-sm font-semibold text-white shadow-soft ring-1 ring-studio-300/25 transition hover:bg-studio-900"
-                  >
-                    Ver detalhes
-                  </button>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {items.slice(2).map((it, idx) => (
-              <Reveal key={it.id} delay={0.05 + idx * 0.03}>
-                <button
-                  type="button"
-                  onClick={() => setSelected(it)}
-                  className={[
-                    'group relative w-full overflow-hidden text-left shadow-soft ring-1 ring-studio-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-900/20',
-                    portfolioCardMotion,
-                  ].join(' ')}
-                  style={{
-                    borderRadius: '28px',
-                    clipPath:
-                      idx % 2 === 0
-                        ? 'polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 12%)'
-                        : 'polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%)',
-                  }}
-                >
-                  <div className="relative aspect-[4/3] w-full bg-studio-900">
-                    <img
-                      src={it.image}
-                      alt={portfolioImageAlt(it)}
-                      className="img-hover-zoom h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-studio-950/70 via-studio-950/10 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 p-5">
-                      <p className="text-sm font-semibold text-white">{it.title}</p>
-                      <p className="mt-1 text-xs text-white/75">{it.subtitle}</p>
-                    </div>
-                  </div>
-                </button>
-              </Reveal>
-            ))}
-          </div>
+          ))}
         </div>
       </Container>
-
-      <Modal
-        open={Boolean(selected)}
-        title={selected ? selected.title : 'Projeto'}
-        onClose={() => setSelected(null)}
-      >
-        {selected ? (
-          <div className="grid gap-5 md:grid-cols-[1.2fr_.8fr]">
-            <div className="overflow-hidden rounded-2xl shadow-ring">
-              <img
-                src={selected.image}
-                alt={portfolioImageAlt(selected)}
-                className="aspect-[16/11] w-full object-cover"
-              />
-            </div>
-            <div>
-              <p className="text-sm font-medium text-studio-900">{selected.subtitle}</p>
-              <p className="mt-3 text-sm leading-relaxed text-studio-700">
-                {selected.imageAlt ??
-                  'Ambiente planejado pela StudioA3 com marcenaria sob medida, acabamento premium e atenção total ao detalhe.'}
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-studio-700">
-                {selected.details.map((d) => (
-                  <li key={d} className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-studio-900/40" />
-                    <span>{d}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ) : null}
-      </Modal>
     </MotionSection>
   )
 }

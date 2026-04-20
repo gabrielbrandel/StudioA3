@@ -1,10 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type Dispatch, type SetStateAction } from 'react'
 import { buildWhatsAppLink } from '../pages/siteConfig'
-import { Button } from './Button'
-import { Container } from './Container'
 import { MotionSection } from './MotionSection'
 import { Reveal } from './Reveal'
-import { StudioLogo } from './StudioLogo'
+import { PORTFOLIO_HOME_OFFICE_IMAGE } from '../data/studioMedia'
 
 type FormState = {
   nome: string
@@ -24,6 +22,9 @@ function formatToWhatsAppMessage(s: FormState) {
     `Mensagem: ${s.mensagem || '-'}`,
   ].join('\n')
 }
+
+const fieldClass =
+  'mt-2 w-full border-0 border-b border-white/35 bg-transparent py-2.5 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white'
 
 export function LeadFormSection() {
   const ambientes = useMemo(
@@ -54,172 +55,160 @@ export function LeadFormSection() {
   return (
     <MotionSection
       id="contato"
-      className="relative z-10 overflow-x-hidden pb-20 pt-8 sm:pb-28 sm:pt-12"
+      className="relative z-10 scroll-mt-24 overflow-x-hidden bg-black pb-20 pt-0 text-white sm:scroll-mt-28 sm:pb-28"
     >
-      <Container className="min-w-0">
-        <div className="grid min-w-0 gap-8 sm:gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
-          <div className="min-w-0">
+      <div className="grid min-h-0 grid-cols-1 lg:min-h-[min(38rem,72svh)] lg:grid-cols-2">
+        <div className="relative h-[min(14rem,42svh)] min-h-[12rem] sm:h-[min(18rem,38svh)] lg:h-auto lg:min-h-full">
+          <img
+            src={PORTFOLIO_HOME_OFFICE_IMAGE}
+            alt="Ambiente de escritório planejado com marcenaria e iluminação"
+            className="absolute inset-0 h-full w-full object-cover object-[center_42%]"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/35 lg:bg-gradient-to-r lg:from-black/50 lg:via-black/15 lg:to-transparent" />
+        </div>
+
+        <div className="relative z-10 flex flex-col justify-center bg-black px-5 py-12 sm:px-8 sm:py-14 lg:bg-black/82 lg:px-10 lg:py-14 lg:backdrop-blur-[3px] xl:px-14">
+          <div className="mx-auto w-full max-w-lg lg:max-w-md">
             <Reveal>
-              <p className="text-xs font-semibold tracking-[0.22em] text-studio-600">
-                ORÇAMENTO
-              </p>
-              <h2 className="mt-4 text-balance font-display text-2xl tracking-tight text-studio-950 sm:text-4xl">
-                Solicite seu orçamento
+              <h2 className="text-center font-sans text-lg font-semibold uppercase leading-snug tracking-[0.14em] text-white sm:text-xl xl:text-[1.35rem]">
+                Deixe seus contatos
               </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-studio-700 sm:mt-4 sm:text-base">
-                Envio abre o WhatsApp com a mensagem pronta.
+              <p className="mx-auto mt-3 max-w-md text-center text-sm text-white/60">
+                Retornamos pelo WhatsApp com orientação e próximos passos.
               </p>
             </Reveal>
 
-            <Reveal delay={0.1}>
-              <details className="mt-5 rounded-2xl bg-studio-50 p-4 shadow-ring sm:hidden">
-                <summary className="cursor-pointer list-none text-sm font-semibold text-studio-900 [&::-webkit-details-marker]:hidden">
-                  Dica para orçamento mais preciso
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-studio-700">
-                  Se já tiver medidas ou planta, mencione na mensagem.
-                </p>
-              </details>
-              <div className="mt-6 hidden rounded-2xl bg-studio-50 p-4 shadow-ring sm:block sm:p-6">
-                <p className="text-sm font-semibold text-studio-900">Dica para maior precisão</p>
-                <p className="mt-2 text-sm leading-relaxed text-studio-700">
-                  Se já tiver medidas aproximadas ou planta do apartamento, mencione na
-                  mensagem. Isso ajuda a equipe a estimar melhor o projeto.
-                </p>
-              </div>
+            <Reveal delay={0.06} className="mt-10">
+              <LeadFormFields
+                ambientes={ambientes}
+                state={state}
+                setState={setState}
+                canSubmit={canSubmit}
+                sent={sent}
+                setSent={setSent}
+              />
             </Reveal>
           </div>
-
-          <Reveal delay={0.08} className="min-w-0">
-            <form
-              className="relative min-w-0 overflow-hidden rounded-2xl bg-studio-200/25 p-4 shadow-soft ring-1 ring-studio-300/35 backdrop-blur sm:rounded-[28px] sm:p-6"
-              onSubmit={(e) => {
-                e.preventDefault()
-                if (!canSubmit) return
-                const msg = formatToWhatsAppMessage(state)
-                window.open(buildWhatsAppLink(msg), '_blank', 'noreferrer')
-                setSent(true)
-                setState({ nome: '', telefone: '', ambiente: '', mensagem: '' })
-                window.setTimeout(() => setSent(false), 6000)
-              }}
-            >
-              <StudioLogo
-                variant="mark"
-                decorative
-                className="pointer-events-none absolute right-3 top-3 h-11 w-11 opacity-[0.22] sm:hidden"
-              />
-              <StudioLogo
-                variant="stacked"
-                decorative
-                className="pointer-events-none absolute -right-1 top-1 hidden h-[4.25rem] w-auto max-w-[4.75rem] opacity-[0.28] sm:block sm:h-[4.75rem] sm:max-w-[5.25rem]"
-              />
-              <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-                <div className="min-w-0 sm:col-span-1">
-                  <label className="text-sm font-medium text-studio-900" htmlFor="nome">
-                    Nome
-                  </label>
-                  <input
-                    id="nome"
-                    value={state.nome}
-                    onChange={(e) => setState((s) => ({ ...s, nome: e.target.value }))}
-                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
-                    placeholder="Seu nome"
-                    autoComplete="name"
-                    required
-                  />
-                </div>
-
-                <div className="min-w-0 sm:col-span-1">
-                  <label
-                    className="text-sm font-medium text-studio-900"
-                    htmlFor="telefone"
-                  >
-                    Telefone
-                  </label>
-                  <input
-                    id="telefone"
-                    value={state.telefone}
-                    onChange={(e) =>
-                      setState((s) => ({ ...s, telefone: e.target.value }))
-                    }
-                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 shadow-[0_1px_0_rgba(0,0,0,.03)] outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
-                    placeholder="(DDD) número"
-                    autoComplete="tel"
-                    required
-                  />
-                </div>
-
-                <div className="min-w-0 sm:col-span-2">
-                  <label
-                    className="text-sm font-medium text-studio-900"
-                    htmlFor="ambiente"
-                  >
-                    Tipo de ambiente
-                  </label>
-                  <select
-                    id="ambiente"
-                    value={state.ambiente}
-                    onChange={(e) =>
-                      setState((s) => ({ ...s, ambiente: e.target.value }))
-                    }
-                    className="mt-2 box-border h-11 w-full max-w-full min-w-0 rounded-2xl border border-studio-200 bg-white px-3 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:px-4"
-                  >
-                    <option value="">Selecione</option>
-                    {ambientes.map((a) => (
-                      <option key={a} value={a}>
-                        {a}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="min-w-0 sm:col-span-2">
-                  <label
-                    className="text-sm font-medium text-studio-900"
-                    htmlFor="mensagem"
-                  >
-                    Mensagem
-                  </label>
-                  <textarea
-                    id="mensagem"
-                    value={state.mensagem}
-                    onChange={(e) =>
-                      setState((s) => ({ ...s, mensagem: e.target.value }))
-                    }
-                    className="mt-2 box-border min-h-24 w-full max-w-full min-w-0 resize-y rounded-2xl border border-studio-200 bg-white px-3 py-3 text-sm text-studio-900 outline-none transition focus:border-studio-900/30 focus:ring-2 focus:ring-studio-900/10 sm:min-h-28 sm:px-4"
-                    placeholder="Conte um pouco sobre o que você precisa."
-                  />
-                </div>
-              </div>
-
-              <div className="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-balance text-xs text-studio-600 sm:max-w-[55%]">
-                  Ao enviar, você será redirecionado para o WhatsApp.
-                </p>
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="primary"
-                  disabled={!canSubmit}
-                  className={[
-                    'disabled:cursor-not-allowed disabled:opacity-60',
-                    'w-full sm:w-auto',
-                  ].join(' ')}
-                >
-                  Enviar
-                </Button>
-              </div>
-
-              {sent ? (
-                <div className="mt-4 rounded-2xl bg-studio-50 p-4 text-sm text-studio-700">
-                  Mensagem preparada. Se o WhatsApp não abriu, verifique bloqueios de pop-up.
-                </div>
-              ) : null}
-            </form>
-          </Reveal>
         </div>
-      </Container>
+      </div>
     </MotionSection>
   )
 }
 
+function LeadFormFields({
+  ambientes,
+  state,
+  setState,
+  canSubmit,
+  sent,
+  setSent,
+}: {
+  ambientes: string[]
+  state: FormState
+  setState: Dispatch<SetStateAction<FormState>>
+  canSubmit: boolean
+  sent: boolean
+  setSent: Dispatch<SetStateAction<boolean>>
+}) {
+  return (
+    <form
+      className="space-y-6"
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (!canSubmit) return
+        const msg = formatToWhatsAppMessage(state)
+        window.open(buildWhatsAppLink(msg), '_blank', 'noreferrer')
+        setSent(true)
+        setState({ nome: '', telefone: '', ambiente: '', mensagem: '' })
+        window.setTimeout(() => setSent(false), 6000)
+      }}
+    >
+      <div>
+        <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55" htmlFor="nome">
+          Como podemos te chamar?
+        </label>
+        <input
+          id="nome"
+          value={state.nome}
+          onChange={(e) => setState((s) => ({ ...s, nome: e.target.value }))}
+          className={fieldClass}
+          placeholder="Seu nome"
+          autoComplete="name"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55" htmlFor="telefone">
+          Seu telefone
+        </label>
+        <input
+          id="telefone"
+          value={state.telefone}
+          onChange={(e) => setState((s) => ({ ...s, telefone: e.target.value }))}
+          className={fieldClass}
+          placeholder="(DDD) número"
+          autoComplete="tel"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55" htmlFor="ambiente">
+          Tipo de ambiente
+        </label>
+        <select
+          id="ambiente"
+          value={state.ambiente}
+          onChange={(e) => setState((s) => ({ ...s, ambiente: e.target.value }))}
+          className={`${fieldClass} cursor-pointer appearance-none bg-[length:0.65rem] bg-[right_0_top_50%] bg-no-repeat pr-8 text-white`}
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='rgba(255,255,255,0.55)' stroke-width='1.5' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E")`,
+          }}
+        >
+          <option value="" className="bg-black text-white">
+            Selecione
+          </option>
+          {ambientes.map((a) => (
+            <option key={a} value={a} className="bg-black text-white">
+              {a}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55" htmlFor="mensagem">
+          Resumo do projeto
+        </label>
+        <textarea
+          id="mensagem"
+          value={state.mensagem}
+          onChange={(e) => setState((s) => ({ ...s, mensagem: e.target.value }))}
+          className={`${fieldClass} min-h-[5.5rem] resize-y`}
+          placeholder="Metragem, prazo desejado, referências…"
+        />
+      </div>
+
+      <div className="flex flex-col items-center gap-4 pt-2">
+        <button
+          type="submit"
+          disabled={!canSubmit}
+          className="w-full max-w-xs border border-white px-8 py-3.5 text-center text-xs font-semibold uppercase tracking-[0.22em] text-white transition enabled:hover:bg-white enabled:hover:text-black disabled:cursor-not-allowed disabled:opacity-45"
+        >
+          Enviar solicitação
+        </button>
+        <p className="text-center text-xs text-white/45">
+          Ao enviar, o WhatsApp abre com a mensagem pronta.
+        </p>
+      </div>
+
+      {sent ? (
+        <p className="text-center text-sm text-white/70">
+          Pronto. Se o WhatsApp não abriu, verifique bloqueios de pop-up.
+        </p>
+      ) : null}
+    </form>
+  )
+}

@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useState,
-  type ComponentType,
-  type SVGProps,
-} from 'react'
+import { useEffect, useMemo, useState, type ComponentType, type SVGProps } from 'react'
 import { ButtonLink } from './Button'
 import {
   IconChevronLeft,
@@ -18,6 +12,7 @@ import {
   IconUser,
   IconWhatsapp,
 } from './Icons'
+import { useActiveSection } from '../hooks/useActiveSection'
 import { buildWhatsAppLink, SITE } from '../pages/siteConfig'
 import { StudioLogo } from './StudioLogo'
 
@@ -29,26 +24,6 @@ type NavItem = { id: string; label: string; Icon: IconComponent }
 const NAV_BG = '#252220'
 const WIDTH_EXPANDED = '18rem'
 const WIDTH_COLLAPSED = '5rem'
-
-function useActiveSection(ids: string[]) {
-  const [active, setActive] = useState(ids[0] ?? '')
-  useEffect(() => {
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
-    if (els.length === 0) return
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0]
-        if (visible?.target?.id) setActive(visible.target.id)
-      },
-      { root: null, threshold: [0.2, 0.35, 0.5], rootMargin: '-20% 0px -70% 0px' },
-    )
-    els.forEach((el) => obs.observe(el))
-    return () => obs.disconnect()
-  }, [ids])
-  return active
-}
 
 export function Sidebar() {
   const items: NavItem[] = useMemo(

@@ -163,6 +163,21 @@ export function IconChevronLeft(props: IconProps) {
   )
 }
 
+export function IconArrowUpRight(props: IconProps) {
+  const { title = 'Abrir', ...rest } = props
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-label={title} {...rest}>
+      <path
+        d="M7 17 17 7M9 7h8v8"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function IconMenu(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
