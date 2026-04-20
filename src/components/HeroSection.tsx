@@ -249,12 +249,12 @@ export function HeroSection() {
           ].join(' ')}
         >
           <div className="w-full max-w-7xl text-left">
-            <div className="mb-7 flex w-full max-lg:-translate-y-[275px] lg:-translate-y-[75px] justify-start lg:mb-8">
+            <div className="mb-7 flex w-full max-lg:-translate-y-[225px] lg:-translate-y-[25px] justify-start lg:mb-8">
               <div className="relative">
                 <StudioBrandLogo className="mb-0 drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]" />
               </div>
             </div>
-            <h1 className="font-display text-[clamp(3.25rem,12vw,7.5rem)] font-normal leading-[0.95] tracking-tight text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.55),0_1px_0_rgba(255,255,255,0.35)]">
+            <h1 className="-mt-[50px] font-display text-[clamp(3.25rem,12vw,7.5rem)] font-normal leading-[0.95] tracking-tight text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.55),0_1px_0_rgba(255,255,255,0.35)]">
               Criar
             </h1>
 
